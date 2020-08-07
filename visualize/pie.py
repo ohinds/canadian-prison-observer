@@ -2,11 +2,26 @@ import argparse
 from collections import defaultdict
 import os
 import sys
+from typing import Dict, List, Optional
 
+import attr
+import numpy as np
 import pandas as pd
 import yaml
 
 from ingest import statcan
+
+
+@attr.s(auto_attribs=True)
+class Node():
+    name: str
+    count: Optional[int] = 0
+    proportion: Optional[float] = np.nan
+    children: Optional[List] = attr.Factory(list)
+
+    def add_child(self, child):
+        self.children.append(child)
+        self.count += child.count
 
 
 class Pie:
@@ -15,35 +30,27 @@ class Pie:
         self.year = year
         self.config = yaml.load(
             open(os.path.join(os.path.dirname(__file__), pie_name + '.yaml')))
-        self.levels = defaultdict(dict)
         self.table_cache = {}
 
-    def build(self, base_config=None, level=0):
-        """This function should build a tree
+    def build(self, node_name: Optional[str] = None, node_config: Optional[Dict] = None):
+        """Build a tree representation of the pie
         """
-        if level == 0:
-            self.levels[0] = {'total':
-                              self.build(base_config=self.config, level=1)}
+        if not node_config:
+            self.tree = self.build(self.name, node_config=self.config)
             return
 
-        total_sum = 0
-        for name, conf in base_config.items():
-            this_part_sum = 0
-            for part in conf.get('parts', []):
-                this_part_sum += self.build(base_config=part, level=level + 1)
-
-            if 'statcan_id' in conf:
+        node = Node(name=node_name)
+        for name, conf in node_config.items():
+            if 'statcan_id' not in conf:
+                node.add_child(self.build(name, conf))
+            else:
                 table = self._get_table(conf['statcan_id'])
                 mask = pd.Series(True, index=table.index)
                 for column, val in conf.get('column constraints', {}).items():
                     mask &= table[column] == val
-                value = table.loc[mask & (table.REF_DATE == self.year)].VALUE
-                this_part_sum += value.item()
-
-            self.levels[level][name] = this_part_sum
-            total_sum += this_part_sum
-
-        return total_sum
+                value = table.loc[mask & (table.REF_DATE == self.year)].VALUE.item()
+                node.add_child(Node(name=name, count=value))
+        return node
 
     def _get_table(self, statcan_id):
         if statcan_id not in self.table_cache:

@@ -7,6 +7,7 @@ verify_ssl = true
 pdbpp = "*"
 
 [packages]
+attrs = "*"
 pandas = "*"
 requests = "*"
 pyyaml = "*"
