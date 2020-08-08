@@ -50,10 +50,12 @@ class Pie:
                 ours.update({parent_name: name, 'count': value})
                 self.leaves.append(ours)
 
-    def show(self):
-        fig = px.sunburst(
+    def get_figure(self):
+        return px.sunburst(
             self.data, path=[c for c in self.data.columns if c != 'count'], values='count')
-        fig.show()
+
+    def show(self):
+        self.get_figure().show()
 
     def _get_table(self, statcan_id):
         if statcan_id not in self.table_cache:
