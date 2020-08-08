@@ -4,53 +4,55 @@ import os
 import sys
 from typing import Dict, List, Optional
 
-import attr
 import numpy as np
 import pandas as pd
+import plotly.express as px
 import yaml
 
 from ingest import statcan
-
-
-@attr.s(auto_attribs=True)
-class Node():
-    name: str
-    count: Optional[int] = 0
-    proportion: Optional[float] = np.nan
-    children: Optional[List] = attr.Factory(list)
-
-    def add_child(self, child):
-        self.children.append(child)
-        self.count += child.count
 
 
 class Pie:
     def __init__(self, pie_name, year=None):
         self.name = pie_name
         self.year = year
-        self.config = yaml.load(
+        self.config = yaml.safe_load(
             open(os.path.join(os.path.dirname(__file__), pie_name + '.yaml')))
+        self.data = None
         self.table_cache = {}
 
-    def build(self, node_name: Optional[str] = None, node_config: Optional[Dict] = None):
+    def build(self, parent_name: Optional[str] = None, parents: Optional[Dict] = None,
+              config: Optional[Dict] = None):
         """Build a tree representation of the pie
         """
-        if not node_config:
-            self.tree = self.build(self.name, node_config=self.config)
+        if not config:
+            self.leaves = []
+            self.build(self.name, {}, config=self.config)
+            self.data = pd.DataFrame(self.leaves)
             return
 
-        node = Node(name=node_name)
-        for name, conf in node_config.items():
+        for name, conf in config.items():
             if 'statcan_id' not in conf:
-                node.add_child(self.build(name, conf))
+                dim_parents = parents.copy()
+                dim_parents.update({parent_name: name})
+                for dim_name, dim_conf in conf.items():
+                    for part_name, part_conf in conf.items():
+                        ours = dim_parents.copy()
+                        ours.update({dim_name: part_name})
+                        self.build(part_name, ours, part_conf)
             else:
                 table = self._get_table(conf['statcan_id'])
                 mask = pd.Series(True, index=table.index)
                 for column, val in conf.get('column constraints', {}).items():
                     mask &= table[column] == val
                 value = table.loc[mask & (table.REF_DATE == self.year)].VALUE.item()
-                node.add_child(Node(name=name, count=value))
-        return node
+                ours = parents.copy()
+                ours.update({parent_name: name, 'count': value})
+                self.leaves.append(ours)
+
+    def show(self):
+        fig = px.sunburst(self.data, self.data.columns, values='count')
+        fig.write_image('test.png')
 
     def _get_table(self, statcan_id):
         if statcan_id not in self.table_cache:
@@ -68,7 +70,7 @@ def main(argv):
     for pie_name in args.pie_name:
         pie = Pie(pie_name, year=args.year)
         pie.build()
-        breakpoint()
+        pie.show()
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))

@@ -1,14 +1,15 @@
 adult:
-  federal:
-    statcan_id: 35100155
-    column constraints:
-      Custodial and community supervision: Actual-in count
-      GEO: Canada
-  provincial and territorial:
-    statcan_id: 35100154
-    column constraints:
-      Custodial and community supervision: Total actual-in count
-      GEO: Provinces and Territories
+  jurisdiction:
+    federal:
+      statcan_id: 35100155
+      column constraints:
+        Custodial and community supervision: Actual-in count
+        GEO: Canada
+    provincial and territorial:
+      statcan_id: 35100154
+      column constraints:
+        Custodial and community supervision: Total actual-in count
+        GEO: Provinces and Territories
 young persons:
   statcan_id: 35100003
   column constraints:
