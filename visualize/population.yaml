@@ -1,17 +1,83 @@
-adult:
-  jurisdiction:
-    federal:
-      statcan_id: 35100155
-      column constraints:
-        Custodial and community supervision: Actual-in count
-        GEO: Canada
-    provincial and territorial:
-      statcan_id: 35100154
-      column constraints:
-        Custodial and community supervision: Total actual-in count
-        GEO: Provinces and Territories
-young persons:
-  statcan_id: 35100003
-  column constraints:
-    Custodial and community supervision: Total actual-in count
-    GEO: Provinces and Territories
+incarcerated:
+  age:
+    adult:
+      jurisdiction:
+        federal:
+          statcan_id: 35100155
+          column constraints:
+            Custodial and community supervision: Actual-in count
+            GEO: Canada
+        provincial and territorial:
+          status:
+            remand:
+              statcan_id: 35100154
+              column constraints:
+                Custodial and community supervision: Remand, actual-in count
+                GEO: Provinces and Territories
+            sentenced:
+              statcan_id: 35100154
+              column constraints:
+                Custodial and community supervision: Sentenced, actual-in count
+                GEO: Provinces and Territories
+            other:
+              statcan_id: 35100154
+              column constraints:
+                Custodial and community supervision: Other statuses, actual-in count
+                GEO: Provinces and Territories
+    young persons:
+      jurisdiction:
+        provincial and territorial:
+          statcan_id: 35100003
+          column constraints:
+            Custodial and community supervision: Total actual-in count
+            GEO: Provinces and Territories
+community supervision:
+  age:
+    adult:
+      jurisdiction:
+        federal:
+          status:
+            day parole:
+              statcan_id: 35100155
+              column constraints:
+                Custodial and community supervision: Day parole, community supervision
+                GEO: Canada
+            full parole:
+              statcan_id: 35100155
+              column constraints:
+                Custodial and community supervision: Full parole, community supervision
+                GEO: Canada
+            statutory release:
+              statcan_id: 35100155
+              column constraints:
+                Custodial and community supervision: Statutory release, community supervision
+                GEO: Canada
+            long term supervision:
+              statcan_id: 35100155
+              column constraints:
+                Custodial and community supervision: Long term supervision
+                GEO: Canada
+        provincial and territorial:
+          status:
+            probation:
+              statcan_id: 35100154
+              column constraints:
+                Custodial and community supervision: Probation, community supervision
+                GEO: Provinces and Territories
+            conditional sentence:
+              statcan_id: 35100154
+              column constraints:
+                Custodial and community supervision: Conditional sentence, community supervision
+                GEO: Provinces and Territories
+            provincial parole:
+              statcan_id: 35100154
+              column constraints:
+                Custodial and community supervision: Provincial parole, community supervision
+                GEO: Provinces and Territories
+    young persons:
+      jurisdiction:
+        provincial and territorial:
+          statcan_id: 35100003
+          column constraints:
+            Custodial and community supervision: Total actual-in count
+            GEO: Provinces and Territories
