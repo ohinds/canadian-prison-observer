@@ -51,8 +51,9 @@ class Pie:
                 self.leaves.append(ours)
 
     def show(self):
-        fig = px.sunburst(self.data, self.data.columns, values='count')
-        fig.write_image('test.png')
+        fig = px.sunburst(
+            self.data, path=[c for c in self.data.columns if c != 'count'], values='count')
+        fig.show()
 
     def _get_table(self, statcan_id):
         if statcan_id not in self.table_cache:
