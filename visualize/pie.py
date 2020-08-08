@@ -51,8 +51,10 @@ class Pie:
                 self.leaves.append(ours)
 
     def get_figure(self):
-        return px.sunburst(
+        fig = px.sunburst(
             self.data, path=[c for c in self.data.columns if c != 'count'], values='count')
+        fig.update_layout(font_family="Comic Sans MS")
+        return fig
 
     def show(self):
         self.get_figure().show()

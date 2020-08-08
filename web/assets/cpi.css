@@ -2,39 +2,8 @@ body {
     font-size: 3rem;
     line-height: 1;
     font-weight: 400;
-    font-color: pink;
     font-family: "Comic Sans MS", sans-serif;
     backgroud-color: #cccccc;
     margin: 50;
-    height: 100% !important;
-}
-
-html {
-    font-size: 50%;
-    background-color: #cccccc;
-    max-width: 100% !important;
-    width: 100% !important;
-    height: 100% !important;
-    margin: 0;
-}
-
-#app-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: stretch;
-    max-width: 1900px;
-    height: 100rem;
-    margin-bottom: 5rem;
-}
-
-
-pie-container {
-    display: flex;
-    flex-direction: column;
-    border-radius: 5px;
-    margin: 5px;
-    padding: 10px;
-    position: relative;
     height: 100% !important;
 }
