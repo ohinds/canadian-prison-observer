@@ -1,10 +1,8 @@
 import argparse
-from collections import defaultdict
 import os
 import sys
-from typing import Dict, List, Optional
+from typing import Dict
 
-import numpy as np
 import pandas as pd
 import plotly.express as px
 import yaml
@@ -12,25 +10,27 @@ import yaml
 from ingest import statcan
 
 
+class PieBuildError(Exception):
+    """
+    """
+
+
 class Pie:
-    def __init__(self, pie_name, year=None):
+    def __init__(self, pie_name):
         self.name = pie_name
-        self.year = year
         self.config = yaml.safe_load(
             open(os.path.join(os.path.dirname(__file__), pie_name + '.yaml')))
         self.data = None
         self.table_cache = {}
 
-    def build(self, parent_name: Optional[str] = None, parents: Optional[Dict] = None,
-              config: Optional[Dict] = None):
+    def build(self, year='2017/2018'):
         """Build a tree representation of the pie
         """
-        if not config:
-            self.leaves = []
-            self.build(self.name, {}, config=self.config)
-            self.data = pd.DataFrame(self.leaves)
-            return
+        self.leaves = []
+        self._build(year, self.name, {}, config=self.config)
+        self.data = pd.DataFrame(self.leaves)
 
+    def _build(self, year: str, parent_name: str, parents: Dict, config: Dict):
         for name, conf in config.items():
             if 'statcan_id' not in conf:
                 dim_parents = parents.copy()
@@ -39,13 +39,19 @@ class Pie:
                     for part_name, part_conf in conf.items():
                         ours = dim_parents.copy()
                         ours.update({dim_name: part_name})
-                        self.build(part_name, ours, part_conf)
+                        self._build(year, part_name, ours, part_conf)
             else:
                 table = self._get_table(conf['statcan_id'])
+                if not table.REF_DATE.isin([year]).any():
+                    raise PieBuildError(f"Year [{year}] not found in statcan_id {conf['statcan_id']}")
                 mask = pd.Series(True, index=table.index)
                 for column, val in conf.get('column constraints', {}).items():
                     mask &= table[column] == val
-                value = table.loc[mask & (table.REF_DATE == self.year)].VALUE.item()
+
+                try:
+                    value = table.loc[mask & (table.REF_DATE == year)].VALUE.item()
+                except:
+                    PieBuildError(f"Failed to find a single value for {conf}.")
                 ours = parents.copy()
                 ours.update({parent_name: name, 'count': value})
                 self.leaves.append(ours)
@@ -73,9 +79,10 @@ def main(argv):
     args = parser.parse_args()
 
     for pie_name in args.pie_name:
-        pie = Pie(pie_name, year=args.year)
-        pie.build()
+        pie = Pie(pie_name)
+        pie.build(year=args.year)
         pie.show()
+
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
