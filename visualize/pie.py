@@ -57,10 +57,18 @@ class Pie:
                 self.leaves.append(ours)
 
     def get_figure(self):
+        categories = [c for c in self.data.columns if c != 'count']
         fig = px.sunburst(
-            self.data, path=[c for c in self.data.columns if c != 'count'], values='count',
-            color_discrete_sequence=['#335075', '#EF3340'])
-        fig.update_layout(height=900, font_family="Noto Sans", font_size=24)
+            self.data, values='count', path=categories, color_discrete_sequence=['#335075', '#EF3340'])
+        fig.update_layout(
+            height=900,
+            font_family="Noto Sans",
+            font_size=24,
+            hoverlabel=dict(
+                font_size=16,
+            )
+        )
+        fig['data'][0]['hovertemplate'] = '%{id}<br><b>Average Daily Population:</b> %{value:0.0f}'
         return fig
 
     def show(self):
