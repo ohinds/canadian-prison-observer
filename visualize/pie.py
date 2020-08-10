@@ -63,7 +63,8 @@ class Pie:
             'count': 'count',
         })
         fig = px.sunburst(
-            self.data, values='count', path=categories, hover_data=hover_data)
+            self.data, values='count', path=categories, hover_data=hover_data, height=800)
+        fig.update_layout(font_size=20)
         fig['data'][0]['hovertemplate'] = '%{id}<br>Average Daily Population %{customdata[4]}'
         return fig
 

@@ -5,6 +5,7 @@ import dash
 from dash.dependencies import Input, Output
 import dash_core_components as dcc
 import dash_html_components as html
+import plotly.graph_objs as go
 
 from visualize.pie import Pie
 
@@ -27,33 +28,58 @@ for pie in pies.values():
     pie.build()
 year_slider_marks = {i: {'label': f'{i}/{i+1}'} for i in range(2000, 2018)}
 
+empty_layout = {
+    'paper_bgcolor': 'rgba(0,0,0,0)',
+    'plot_bgcolor': 'rgba(0,0,0,0)',
+    'xaxis': dict(
+        showline=False, showgrid=False, zeroline=False, showticklabels=False
+    ),
+    'yaxis': dict(
+        showgrid=False, showline=False, zeroline=False, showticklabels=False
+    ),
+}
+
+
 app.layout = html.Div(
     id='root',
     children=[
         html.Div(
             html.Div("The Canadian Carceral System",
-                     className='title sans'),
+                     className='h1'),
             id='title',
         ),
         html.Div(
             id='app-container',
-            className='row flex-display',
             children=[
                 dcc.Dropdown(
                     id='pie-dropdown',
-                    options=[{'label': pie_name.title(), 'value': pie_name} for pie_name in pies]
+                    options=[{'label': pie_name.title(), 'value': pie_name}
+                             for pie_name in pies]
                 ),
-                dcc.Slider(
-                    id='year-slider',
-                    min=min(year_slider_marks),
-                    max=max(year_slider_marks),
-                    value=max(year_slider_marks),
-                    marks=year_slider_marks,
-                ),
-                dcc.Graph(
-                    id='pie',
-                    figure={},
-                    config={'displayModeBar': False}
+                html.Div(
+                    id='pie-container',
+                    className='row flex-display',
+                    children=[
+                        html.Div(
+                            dcc.Slider(
+                                id='year-slider',
+                                min=min(year_slider_marks),
+                                max=max(year_slider_marks),
+                                value=max(year_slider_marks),
+                                marks=year_slider_marks,
+                                vertical=True,
+                            ),
+                            className='one column',
+                        ),
+                        html.Div(
+                            dcc.Graph(
+                                id='pie',
+                                figure=go.Figure(layout=empty_layout),
+                                config={'displayModeBar': False},
+                            ),
+                            className='eleven columns',
+                        )
+                    ]
                 ),
             ]
         ),
@@ -67,7 +93,7 @@ app.layout = html.Div(
 ])
 def choose_pie(pie_name, year):
     if not pie_name:
-        return {}
+        return go.Figure(layout=empty_layout)
     pies[pie_name].build(year=year_slider_marks[year]['label'])
     return pies[pie_name].get_figure()
 
