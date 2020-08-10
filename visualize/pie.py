@@ -58,8 +58,9 @@ class Pie:
 
     def get_figure(self):
         fig = px.sunburst(
-            self.data, path=[c for c in self.data.columns if c != 'count'], values='count')
-        fig.update_layout(height=900, font_family="Comic Sans MS")
+            self.data, path=[c for c in self.data.columns if c != 'count'], values='count',
+            color_discrete_sequence=['#335075', '#EF3340'])
+        fig.update_layout(height=900, font_family="Noto Sans", font_size=24)
         return fig
 
     def show(self):

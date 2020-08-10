@@ -9,11 +9,17 @@ import dash_html_components as html
 from visualize.pie import Pie
 
 
+external_stylesheets = [
+    'https://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic&subset=latin,latin-ext',
+]
+
 app = dash.Dash(
     __name__,
+    external_stylesheets=external_stylesheets,
     meta_tags=[
         {'name': 'viewport',
-         'content': 'width=device-width, initial-scale=1.0'}
+         'content': 'width=device-width, initial-scale=1.0',
+        }
     ],
 )
 app.title = "The Canadian Carceral System"
