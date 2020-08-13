@@ -1,78 +1,68 @@
 import argparse
+import json
+import glob
 import os
 import sys
-from typing import Dict
+from typing import Dict, List, Optional
 
+import attr
 import pandas as pd
-import plotly.express as px
 import yaml
 
 from ingest import statcan
 
 
-class PieBuildError(Exception):
-    """
-    """
+@attr.s(auto_attribs=True)
+class Node():
+    name: str
+    values: Optional[Dict[str, float]] = None
+    children: Optional[List] = attr.Factory(list)
+
+    def add_child(self, child):
+        self.children.append(child)
+
+    def extract_year(self, year):
+        if self.values:
+            return {'name': self.name, 'value': self.values[year] if year in self.values else None}
+
+        return {
+            'name': self.name,
+            'children': [c.extract_year(year) for c in self.children]
+        }
 
 
 class Pie:
     def __init__(self, pie_name):
         self.name = pie_name
+        self.years = set()
         self.config = yaml.safe_load(
             open(os.path.join(os.path.dirname(__file__), pie_name + '.yaml')))
-        self.data = None
         self.table_cache = {}
 
-    def build(self, year='2017/2018'):
+    def build(self):
+        self.tree = self._build_tree('root', node_config=self.config)
+        self.json = {'name': self.name, 'data': {}}
+        for year in sorted(self.years):
+            self.json['data'][year] = self.tree.extract_year(year)
+
+    def _build_tree(self, node_name: Optional[str] = None, node_config: Optional[Dict] = None):
         """Build a tree representation of the pie
         """
-        self.leaves = []
-        self._build(year, self.name, {}, config=self.config)
-        self.data = pd.DataFrame(self.leaves)
-
-    def _build(self, year: str, parent_name: str, parents: Dict, config: Dict):
-        for name, conf in config.items():
+        node = Node(name=node_name)
+        for name, conf in node_config.items():
             if 'statcan_id' not in conf:
-                dim_parents = parents.copy()
-                dim_parents.update({parent_name: name})
-                for dim_name, dim_conf in conf.items():
-                    for part_name, part_conf in conf.items():
-                        ours = dim_parents.copy()
-                        ours.update({dim_name: part_name})
-                        self._build(year, part_name, ours, part_conf)
+                node.add_child(self._build_tree(name, conf))
             else:
                 table = self._get_table(conf['statcan_id'])
-                if not table.REF_DATE.isin([year]).any():
-                    raise PieBuildError(f"Year [{year}] not found in statcan_id {conf['statcan_id']}")
                 mask = pd.Series(True, index=table.index)
                 for column, val in conf.get('column constraints', {}).items():
                     mask &= table[column] == val
+                values = table.loc[mask].set_index('REF_DATE').VALUE.fillna('null')
+                self.years |= set(values.index.values)
 
-                try:
-                    value = table.loc[mask & (table.REF_DATE == year)].VALUE.item()
-                except:
-                    PieBuildError(f"Failed to find a single value for {conf}.")
-                ours = parents.copy()
-                ours.update({parent_name: name, 'count': value})
-                self.leaves.append(ours)
-
-    def get_figure(self):
-        categories = [c for c in self.data.columns if c != 'count']
-        fig = px.sunburst(
-            self.data, values='count', path=categories, color_discrete_sequence=['#335075', '#EF3340'])
-        fig.update_layout(
-            height=900,
-            font_family="Noto Sans",
-            font_size=24,
-            hoverlabel=dict(
-                font_size=16,
-            )
-        )
-        fig['data'][0]['hovertemplate'] = '%{id}<br><b>Average Daily Population:</b> %{value:0.0f}'
-        return fig
-
-    def show(self):
-        self.get_figure().show()
+                # TODO add interpolation here
+                node.add_child(Node(name=name, values=values.to_dict()))
+        return node
 
     def _get_table(self, statcan_id):
         if statcan_id not in self.table_cache:
@@ -82,15 +72,21 @@ class Pie:
 
 def main(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('pie_name', nargs='+', help="Pie name(s) to generate.")
-    parser.add_argument('--year', '-y', default='2017/2018',
-                        help="Year to generate pie for (default is latest).")
+    parser.add_argument('pie_name', nargs='?', help="Pie name(s) to generate.")
+    parser.add_argument('--out_dir', '-o', default='data', help="Folder to output to.")
     args = parser.parse_args()
 
+    if args.pie_name is None:
+        args.pie_name = [pie.replace('.yaml', '') for pie in glob.glob(os.path.join(os.path.dirname(__file__), '*.yaml'))]
+
+    pies = []
     for pie_name in args.pie_name:
         pie = Pie(pie_name)
-        pie.build(year=args.year)
-        pie.show()
+        pie.build()
+        pies.append(pie.json)
+
+    with open(os.path.join(args.out_dir, 'pies.json'), 'w') as fp:
+        json.dump(pies, fp)
 
 
 if __name__ == "__main__":
