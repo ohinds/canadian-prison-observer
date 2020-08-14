@@ -9,12 +9,19 @@ Canada Prison Initiative - The Whole Pie, Canada
 </title>
 </head>
 <body>
-<div id="observablehq-80b000b4"></div>
+<div id="observablehq-829185ef">
+  <div class="observablehq-inputs"></div>
+  <div class="observablehq-viewof-sunburst"></div>
+  <div class="observablehq-type"></div>
+</div>
 <script type="module">
-import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
-import define from "https://api.observablehq.com/@observablehq/downloading-and-embedding-notebooks.js?v=3";
-const inspect = Inspector.into("#observablehq-80b000b4");
-(new Runtime).module(define, name => name === "graphic" ? inspect() : undefined);
+  import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+  import define from "https://api.observablehq.com/@ohinds/the-whole-pie-canada.js?v=3";
+  (new Runtime).module(define, name => {
+    if (name === "inputs") return Inspector.into("#observablehq-829185ef .observablehq-inputs")();
+    if (name === "viewof sunburst") return Inspector.into("#observablehq-829185ef .observablehq-viewof-sunburst")();
+    if (name === "type") return Inspector.into("#observablehq-829185ef .observablehq-type")();
+  });
 </script>
 </body>
 </html>
