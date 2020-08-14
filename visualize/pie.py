@@ -33,15 +33,16 @@ class Node():
 
 class Pie:
     def __init__(self, pie_name):
-        self.name = pie_name
-        self.years = set()
-        self.config = yaml.safe_load(
+        yaml_config = yaml.safe_load(
             open(os.path.join(os.path.dirname(__file__), pie_name + '.yaml')))
+        self.name = yaml_config['name']
+        self.years = set()
+        self.config = yaml_config['config']
         self.table_cache = {}
 
     def build(self):
         self.tree = self._build_tree('root', node_config=self.config)
-        self.json = {'name': os.path.basename(self.name).title(), 'data': {}}
+        self.json = {'name': self.name, 'data': {}}
         for year in sorted(self.years):
             self.json['data'][year] = self.tree.extract_year(year)
 

@@ -1,76 +1,78 @@
-Correctional Services:
-  Federal:
-    Warrant of committal:
-      statcan_id: 35100022
-      column constraints:
-        Custodial and community admissions: Warrant of committal
-        GEO: Federal jurisdiction
-    Revocation of conditional release:
-      statcan_id: 35100022
-      column constraints:
-        Custodial and community admissions: Revocation of conditional release
-        GEO: Federal jurisdiction
-    Other custodial statuses:
-      statcan_id: 35100022
-      column constraints:
-        Custodial and community admissions: Other custodial statuses
-        GEO: Federal jurisdiction
-  Provincial and Territorial:
-    Sentenced:
-      statcan_id: 35100014
-      column constraints:
-        Custodial and community admissions: Sentenced
-        GEO: Provinces and territories
-    Remand:
-      statcan_id: 35100014
-      column constraints:
-        Custodial and community admissions: Remand
-        GEO: Provinces and territories
-    Other custodial statuses:
-      statcan_id: 35100014
-      column constraints:
-        Custodial and community admissions: Other custodial statuses
-        GEO: Provinces and territories
-Community Supervision:
-  Federal:
-    Federal day parole:
-      statcan_id: 35100022
-      column constraints:
-        Custodial and community admissions: Federal day parole
-        GEO: Federal jurisdiction
-    Federal full parole:
-      statcan_id: 35100022
-      column constraints:
-        Custodial and community admissions: Federal full parole
-        GEO: Federal jurisdiction
-    Statutory release:
-      statcan_id: 35100022
-      column constraints:
-        Custodial and community admissions: Statutory release
-        GEO: Federal jurisdiction
-  Provincial and Territorial:
-    Probation and conditional sentences:
-      statcan_id: 35100014
-      column constraints:
-        Custodial and community admissions: Probation and conditional sentences
-        GEO: Provinces and territories
-    Probation:
-      statcan_id: 35100014
-      column constraints:
-        Custodial and community admissions: Probation
-        GEO: Provinces and territories
-    Conditional sentence:
-      statcan_id: 35100014
-      column constraints:
-        Custodial and community admissions: Conditional sentence
-        GEO: Provinces and territories
-    Other community programs:
-      statcan_id: 35100014
-      column constraints:
-        Custodial and community admissions: Other community programs
-        GEO: Provinces and territories
-    Unknown community admissions:
-      statcan_id: 35100014
-      column constraints:
-        Custodial and community admissions: Unknown community admissions
-        GEO: Provinces and territories
+name: Admissions by Type
+config:
+  Correctional Services:
+    Federal:
+      Warrant of committal:
+        statcan_id: 35100022
+        column constraints:
+          Custodial and community admissions: Warrant of committal
+          GEO: Federal jurisdiction
+      Revocation of conditional release:
+        statcan_id: 35100022
+        column constraints:
+          Custodial and community admissions: Revocation of conditional release
+          GEO: Federal jurisdiction
+      Other custodial statuses:
+        statcan_id: 35100022
+        column constraints:
+          Custodial and community admissions: Other custodial statuses
+          GEO: Federal jurisdiction
+    Provincial and Territorial:
+      Sentenced:
+        statcan_id: 35100014
+        column constraints:
+          Custodial and community admissions: Sentenced
+          GEO: Provinces and territories
+      Remand:
+        statcan_id: 35100014
+        column constraints:
+          Custodial and community admissions: Remand
+          GEO: Provinces and territories
+      Other custodial statuses:
+        statcan_id: 35100014
+        column constraints:
+          Custodial and community admissions: Other custodial statuses
+          GEO: Provinces and territories
+  Community Supervision:
+    Federal:
+      Federal day parole:
+        statcan_id: 35100022
+        column constraints:
+          Custodial and community admissions: Federal day parole
+          GEO: Federal jurisdiction
+      Federal full parole:
+        statcan_id: 35100022
+        column constraints:
+          Custodial and community admissions: Federal full parole
+          GEO: Federal jurisdiction
+      Statutory release:
+        statcan_id: 35100022
+        column constraints:
+          Custodial and community admissions: Statutory release
+          GEO: Federal jurisdiction
+    Provincial and Territorial:
+      Probation and conditional sentences:
+        statcan_id: 35100014
+        column constraints:
+          Custodial and community admissions: Probation and conditional sentences
+          GEO: Provinces and territories
+      Probation:
+        statcan_id: 35100014
+        column constraints:
+          Custodial and community admissions: Probation
+          GEO: Provinces and territories
+      Conditional sentence:
+        statcan_id: 35100014
+        column constraints:
+          Custodial and community admissions: Conditional sentence
+          GEO: Provinces and territories
+      Other community programs:
+        statcan_id: 35100014
+        column constraints:
+          Custodial and community admissions: Other community programs
+          GEO: Provinces and territories
+      Unknown community admissions:
+        statcan_id: 35100014
+        column constraints:
+          Custodial and community admissions: Unknown community admissions
+          GEO: Provinces and territories
