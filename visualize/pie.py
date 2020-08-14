@@ -41,7 +41,7 @@ class Pie:
 
     def build(self):
         self.tree = self._build_tree('root', node_config=self.config)
-        self.json = {'name': self.name, 'data': {}}
+        self.json = {'name': os.path.basename(self.name).title(), 'data': {}}
         for year in sorted(self.years):
             self.json['data'][year] = self.tree.extract_year(year)
 
