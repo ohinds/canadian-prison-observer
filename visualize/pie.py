@@ -73,11 +73,10 @@ class Pie:
 
 def main(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('pie_name', nargs='?', help="Pie name(s) to generate.")
+    parser.add_argument('pie_name', nargs='*', help="Pie name(s) to generate.")
     parser.add_argument('--out_dir', '-o', default='data', help="Folder to output to.")
     args = parser.parse_args()
-
-    if args.pie_name is None:
+    if not args.pie_name:
         args.pie_name = [pie.replace('.yaml', '') for pie in glob.glob(os.path.join(os.path.dirname(__file__), '*.yaml'))]
 
     pies = []

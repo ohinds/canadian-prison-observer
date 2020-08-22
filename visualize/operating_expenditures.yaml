@@ -1,0 +1,76 @@
+name: Operating Expenditures
+config:
+  Federal:
+    Custodial services:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Custodial services
+        UOM: Current dollars
+        GEO: Federal jurisdiction
+    Average daily inmate cost:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Average daily inmate cost
+        UOM: Current dollars
+        GEO: Federal jurisdiction
+    Average daily inmate cost:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Average daily inmate cost
+        UOM: Current dollars
+        GEO: Federal jurisdiction
+    Headquarters and central services:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Headquarters and central services
+        UOM: Current dollars
+        GEO: Federal jurisdiction
+    Parole boards:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Parole boards
+        UOM: Current dollars
+        GEO: Federal jurisdiction
+    Other operating expenditures:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Other operating expenditures
+        UOM: Current dollars
+        GEO: Federal jurisdiction
+  Provincial and Territorial:
+    Custodial services:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Custodial services
+        UOM: Current dollars
+        GEO: Provinces and territories
+    Average daily inmate cost:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Average daily inmate cost
+        UOM: Current dollars
+        GEO: Provinces and territories
+    Average daily inmate cost:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Average daily inmate cost
+        UOM: Current dollars
+        GEO: Provinces and territories
+    Headquarters and central services:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Headquarters and central services
+        UOM: Current dollars
+        GEO: Provinces and territories
+    Parole boards:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Parole boards
+        UOM: Current dollars
+        GEO: Provinces and territories
+    Other operating expenditures:
+      statcan_id: 35100013
+      column constraints:
+        Operating expenditures: Other operating expenditures
+        UOM: Current dollars
+        GEO: Provinces and territories
