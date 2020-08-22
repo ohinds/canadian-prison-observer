@@ -1,0 +1,41 @@
+name: Admissions by Sex
+config:
+  Sentenced:
+    Female:
+      statcan_id: 35100015
+      column constraints:
+        Custodial admissions: Sentenced
+        Sex: Female
+        GEO: Provinces and territories
+    Male:
+      statcan_id: 35100015
+      column constraints:
+        Custodial admissions: Sentenced
+        Sex: Male
+        GEO: Provinces and territories
+  Remand:
+    Female:
+      statcan_id: 35100015
+      column constraints:
+        Custodial admissions: Remand
+        Sex: Female
+        GEO: Provinces and territories
+    Male:
+      statcan_id: 35100015
+      column constraints:
+        Custodial admissions: Remand
+        Sex: Male
+        GEO: Provinces and territories
+  Other custodial statuses:
+    Female:
+      statcan_id: 35100015
+      column constraints:
+        Custodial admissions: Other custodial statuses
+        Sex: Female
+        GEO: Provinces and territories
+    Male:
+      statcan_id: 35100015
+      column constraints:
+        Custodial admissions: Other custodial statuses
+        Sex: Male
+        GEO: Provinces and territories
