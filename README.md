@@ -1,2 +1,2 @@
-# canada-prison-initiative
+# Canadian Prison Observer
 The whole pie for Canada
