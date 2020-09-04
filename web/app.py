@@ -5,7 +5,7 @@ html = """
 <html>
 <head>
 <title>
-Canada Prison Initiative - The Whole Pie, Canada
+Canadian Prison Observer
 </title>
 </head>
 <body>
