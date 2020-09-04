@@ -1,4 +1,4 @@
-name: Admissions by Type
+name: Custodial Admissions by Type
 config:
   Federal:
     Warrant of committal:
