@@ -1,7 +1,7 @@
 name: Admissions by Gender
 config:
-  Female:
-    Correctional Services:
+  Correctional Services:
+    Female:
       Sentenced:
         statcan_id: 35100015
         column constraints:
@@ -20,7 +20,27 @@ config:
           Custodial admissions: Other custodial statuses
           Sex: Female
           GEO: Provinces and territories
-    Community Services:
+    Male:
+      Sentenced:
+        statcan_id: 35100015
+        column constraints:
+          Custodial admissions: Sentenced
+          Sex: Male
+          GEO: Provinces and territories
+      Remand:
+        statcan_id: 35100015
+        column constraints:
+          Custodial admissions: Remand
+          Sex: Male
+          GEO: Provinces and territories
+      Other custodial statuses:
+        statcan_id: 35100015
+        column constraints:
+          Custodial admissions: Other custodial statuses
+          Sex: Male
+          GEO: Provinces and territories
+  Community Services:
+    Female:
       Probation:
         statcan_id: 35100019
         column constraints:
@@ -45,27 +65,7 @@ config:
           Community admissions: Unknown community admissions
           Sex: Female
           GEO: Provinces and territories
-  Male:
-    Correctional Services:
-      Sentenced:
-        statcan_id: 35100015
-        column constraints:
-          Custodial admissions: Sentenced
-          Sex: Male
-          GEO: Provinces and territories
-      Remand:
-        statcan_id: 35100015
-        column constraints:
-          Custodial admissions: Remand
-          Sex: Male
-          GEO: Provinces and territories
-      Other custodial statuses:
-        statcan_id: 35100015
-        column constraints:
-          Custodial admissions: Other custodial statuses
-          Sex: Male
-          GEO: Provinces and territories
-    Community Services:
+    Male:
       Probation:
         statcan_id: 35100019
         column constraints:
