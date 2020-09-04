@@ -51,11 +51,6 @@ config:
           Custodial and community admissions: Statutory release
           GEO: Federal jurisdiction
     Provincial and Territorial:
-      Probation and conditional sentences:
-        statcan_id: 35100014
-        column constraints:
-          Custodial and community admissions: Probation and conditional sentences
-          GEO: Provinces and territories
       Probation:
         statcan_id: 35100014
         column constraints:

@@ -1,0 +1,34 @@
+name: Admissions by Type
+config:
+  Federal:
+    Warrant of committal:
+      statcan_id: 35100022
+      column constraints:
+        Custodial and community admissions: Warrant of committal
+        GEO: Federal jurisdiction
+    Revocation of conditional release:
+      statcan_id: 35100022
+      column constraints:
+        Custodial and community admissions: Revocation of conditional release
+        GEO: Federal jurisdiction
+    Other custodial statuses:
+      statcan_id: 35100022
+      column constraints:
+        Custodial and community admissions: Other custodial statuses
+        GEO: Federal jurisdiction
+  Provincial and Territorial:
+    Sentenced:
+      statcan_id: 35100014
+      column constraints:
+        Custodial and community admissions: Sentenced
+        GEO: Provinces and territories
+    Remand:
+      statcan_id: 35100014
+      column constraints:
+        Custodial and community admissions: Remand
+        GEO: Provinces and territories
+    Other custodial statuses:
+      statcan_id: 35100014
+      column constraints:
+        Custodial and community admissions: Other custodial statuses
+        GEO: Provinces and territories
