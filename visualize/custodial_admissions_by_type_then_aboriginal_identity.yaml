@@ -1,0 +1,59 @@
+name: Custodial Admissions by Type and Aboriginal Identity
+config:
+  Sentenced:
+    Aboriginal identity:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Sentenced
+        Aboriginal identity: Aboriginal identity
+        GEO: Provinces and territories
+    Non-Aboriginal identity:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Sentenced
+        Aboriginal identity: Non-Aboriginal identity
+        GEO: Provinces and territories
+    Aboriginal identity unknown:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Sentenced
+        Aboriginal identity: Aboriginal identity unknown
+        GEO: Provinces and territories
+  Remand:
+    Aboriginal identity:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Remand
+        Aboriginal identity: Aboriginal identity
+        GEO: Provinces and territories
+    Non-Aboriginal identity:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Remand
+        Aboriginal identity: Non-Aboriginal identity
+        GEO: Provinces and territories
+    Aboriginal identity unknown:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Remand
+        Aboriginal identity: Aboriginal identity unknown
+        GEO: Provinces and territories
+  Other custodial admissions:
+    Aboriginal identity:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Other custodial statuses
+        Aboriginal identity: Aboriginal identity
+        GEO: Provinces and territories
+    Non-Aboriginal identity:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Other custodial statuses
+        Aboriginal identity: Non-Aboriginal identity
+        GEO: Provinces and territories
+    Aboriginal identity unknown:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Other custodial statuses
+        Aboriginal identity: Aboriginal identity unknown
+        GEO: Provinces and territories

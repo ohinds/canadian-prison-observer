@@ -1,0 +1,59 @@
+name: Custodial Admissions by Aboriginal Identity and Type
+config:
+  Aboriginal identity:
+    Sentenced:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Sentenced
+        Aboriginal identity: Aboriginal identity
+        GEO: Provinces and territories
+    Remand:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Remand
+        Aboriginal identity: Aboriginal identity
+        GEO: Provinces and territories
+    Other custodial admissions:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Other custodial statuses
+        Aboriginal identity: Aboriginal identity
+        GEO: Provinces and territories
+  Non-Aboriginal identity:
+    Sentenced:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Sentenced
+        Aboriginal identity: Non-Aboriginal identity
+        GEO: Provinces and territories
+    Remand:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Remand
+        Aboriginal identity: Non-Aboriginal identity
+        GEO: Provinces and territories
+    Other custodial admissions:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Other custodial statuses
+        Aboriginal identity: Non-Aboriginal identity
+        GEO: Provinces and territories
+  Aboriginal identity unknown:
+    Sentenced:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Sentenced
+        Aboriginal identity: Aboriginal identity unknown
+        GEO: Provinces and territories
+    Remand:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Remand
+        Aboriginal identity: Aboriginal identity unknown
+        GEO: Provinces and territories
+    Other custodial admissions:
+      statcan_id: 35100016
+      column constraints:
+        Custodial admissions: Other custodial statuses
+        Aboriginal identity: Aboriginal identity unknown
+        GEO: Provinces and territories

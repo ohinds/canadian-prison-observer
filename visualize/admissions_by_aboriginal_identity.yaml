@@ -1,59 +1,136 @@
 name: Admissions by Aboriginal Identity
 config:
-  Aboriginal identity:
-    Sentenced:
-      statcan_id: 35100016
-      column constraints:
-        Custodial admissions: Sentenced
-        Aboriginal identity: Aboriginal identity
-        GEO: Provinces and territories
-    Remand:
-      statcan_id: 35100016
-      column constraints:
-        Custodial admissions: Remand
-        Aboriginal identity: Aboriginal identity
-        GEO: Provinces and territories
-    Other custodial admissions:
-      statcan_id: 35100016
-      column constraints:
-        Custodial admissions: Other custodial statuses
-        Aboriginal identity: Aboriginal identity
-        GEO: Provinces and territories
-  Non-Aboriginal identity:
-    Sentenced:
-      statcan_id: 35100016
-      column constraints:
-        Custodial admissions: Sentenced
-        Aboriginal identity: Non-Aboriginal identity
-        GEO: Provinces and territories
-    Remand:
-      statcan_id: 35100016
-      column constraints:
-        Custodial admissions: Remand
-        Aboriginal identity: Non-Aboriginal identity
-        GEO: Provinces and territories
-    Other custodial admissions:
-      statcan_id: 35100016
-      column constraints:
-        Custodial admissions: Other custodial statuses
-        Aboriginal identity: Non-Aboriginal identity
-        GEO: Provinces and territories
-  Aboriginal identity unknown:
-    Sentenced:
-      statcan_id: 35100016
-      column constraints:
-        Custodial admissions: Sentenced
-        Aboriginal identity: Aboriginal identity unknown
-        GEO: Provinces and territories
-    Remand:
-      statcan_id: 35100016
-      column constraints:
-        Custodial admissions: Remand
-        Aboriginal identity: Aboriginal identity unknown
-        GEO: Provinces and territories
-    Other custodial admissions:
-      statcan_id: 35100016
-      column constraints:
-        Custodial admissions: Other custodial statuses
-        Aboriginal identity: Aboriginal identity unknown
-        GEO: Provinces and territories
+  Custodial admissions:
+    Aboriginal identity:
+      Sentenced:
+        statcan_id: 35100016
+        column constraints:
+          Custodial admissions: Sentenced
+          Aboriginal identity: Aboriginal identity
+          GEO: Provinces and territories
+      Remand:
+        statcan_id: 35100016
+        column constraints:
+          Custodial admissions: Remand
+          Aboriginal identity: Aboriginal identity
+          GEO: Provinces and territories
+      Other custodial admissions:
+        statcan_id: 35100016
+        column constraints:
+          Custodial admissions: Other custodial statuses
+          Aboriginal identity: Aboriginal identity
+          GEO: Provinces and territories
+    Non-Aboriginal identity:
+      Sentenced:
+        statcan_id: 35100016
+        column constraints:
+          Custodial admissions: Sentenced
+          Aboriginal identity: Non-Aboriginal identity
+          GEO: Provinces and territories
+      Remand:
+        statcan_id: 35100016
+        column constraints:
+          Custodial admissions: Remand
+          Aboriginal identity: Non-Aboriginal identity
+          GEO: Provinces and territories
+      Other custodial admissions:
+        statcan_id: 35100016
+        column constraints:
+          Custodial admissions: Other custodial statuses
+          Aboriginal identity: Non-Aboriginal identity
+          GEO: Provinces and territories
+    Aboriginal identity unknown:
+      Sentenced:
+        statcan_id: 35100016
+        column constraints:
+          Custodial admissions: Sentenced
+          Aboriginal identity: Aboriginal identity unknown
+          GEO: Provinces and territories
+      Remand:
+        statcan_id: 35100016
+        column constraints:
+          Custodial admissions: Remand
+          Aboriginal identity: Aboriginal identity unknown
+          GEO: Provinces and territories
+      Other custodial admissions:
+        statcan_id: 35100016
+        column constraints:
+          Custodial admissions: Other custodial statuses
+          Aboriginal identity: Aboriginal identity unknown
+          GEO: Provinces and territories
+  Community admissions:
+    Aboriginal identity:
+      Probation:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Probation
+          Aboriginal identity: Aboriginal identity
+          GEO: Provinces and territories
+      Conditional sentence:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Conditional sentence
+          Aboriginal identity: Aboriginal identity
+          GEO: Provinces and territories
+      Other community admissions:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Other community admissions
+          Aboriginal identity: Aboriginal identity
+          GEO: Provinces and territories
+      Unknown community admissions:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Unknown community admissions
+          Aboriginal identity: Aboriginal identity
+          GEO: Provinces and territories
+    Non-Aboriginal identity:
+      Probation:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Probation
+          Aboriginal identity: Non-Aboriginal identity
+          GEO: Provinces and territories
+      Conditional sentence:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Conditional sentence
+          Aboriginal identity: Non-Aboriginal identity
+          GEO: Provinces and territories
+      Other community admissions:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Other community statuses
+          Aboriginal identity: Non-Aboriginal identity
+          GEO: Provinces and territories
+      Unknown community admissions:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Unknown community statuses
+          Aboriginal identity: Non-Aboriginal identity
+          GEO: Provinces and territories
+    Aboriginal identity unknown:
+      Probation:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Probation
+          Aboriginal identity: Aboriginal identity unknown
+          GEO: Provinces and territories
+      Conditional sentence:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Conditional sentence
+          Aboriginal identity: Aboriginal identity unknown
+          GEO: Provinces and territories
+      Other community admissions:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Other community statuses
+          Aboriginal identity: Aboriginal identity unknown
+          GEO: Provinces and territories
+      Unknown community admissions:
+        statcan_id: 35100020
+        column constraints:
+          Community admissions: Unknown community statuses
+          Aboriginal identity: Aboriginal identity unknown
+          GEO: Provinces and territories
