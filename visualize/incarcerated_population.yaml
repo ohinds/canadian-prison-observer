@@ -1,12 +1,12 @@
-name: Population by Jurisdiction
+name: Incarcerated Population by Jurisdiction
 config:
-  Adult:
-    Federal:
-      statcan_id: 35100155
-      column constraints:
-        Custodial and community supervision: Actual-in count
-        GEO: Canada
-    Provincial and Territorial:
+  Federal:
+    statcan_id: 35100155
+    column constraints:
+      Custodial and community supervision: Actual-in count
+      GEO: Canada
+  Provincial and Territorial:
+    Adult:
       Remand:
         statcan_id: 35100154
         column constraints:
@@ -22,8 +22,7 @@ config:
         column constraints:
           Custodial and community supervision: Other statuses, actual-in count
           GEO: Provinces and Territories
-  Young Persons:
-    Provincial and Territorial:
+    Young Persons:
       statcan_id: 35100003
       column constraints:
         Custodial and community supervision: Total actual-in count
