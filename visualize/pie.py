@@ -34,7 +34,7 @@ class Node():
 class Pie:
     def __init__(self, pie_name):
         yaml_config = yaml.safe_load(
-            open(os.path.join(os.path.dirname(__file__), pie_name + '.yaml')))
+            open(os.path.join(os.path.dirname(__file__), 'pie', pie_name + '.yaml')))
         self.name = yaml_config['name']
         self.years = set()
         self.config = yaml_config['config']
@@ -78,7 +78,9 @@ def main(argv):
     args = parser.parse_args()
     if not args.pie_name:
         args.pie_name = [
-            pie.replace('.yaml', '') for pie in sorted(glob.glob(os.path.join(os.path.dirname(__file__), '*.yaml')))]
+            pie.replace('.yaml', '')
+            for pie in sorted(glob.glob(os.path.join(os.path.dirname(__file__), 'pie', '*.yaml')))
+        ]
 
     pies = []
     for pie_name in args.pie_name:
