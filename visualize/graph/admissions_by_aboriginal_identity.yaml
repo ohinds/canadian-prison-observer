@@ -1,0 +1,20 @@
+name: Admissions by Aboriginal Identity
+config:
+  Aboriginal identity:
+    statcan_id: 35100016
+    column constraints:
+      Custodial admissions: Total, custodial admissions
+      Aboriginal identity: Aboriginal identity
+    remove geo: Provinces and territories
+  Non-Aboriginal identity:
+    statcan_id: 35100016
+    column constraints:
+      Custodial admissions: Total, custodial admissions
+      Aboriginal identity: Non-Aboriginal identity
+    remove geo: Provinces and territories
+  Aboriginal identity unknown:
+    statcan_id: 35100016
+    column constraints:
+      Custodial admissions: Total, custodial admissions
+      Aboriginal identity: Aboriginal identity unknown
+    remove geo: Provinces and territories
