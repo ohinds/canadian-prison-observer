@@ -1,0 +1,18 @@
+name: Adult Incarcerated Population by Jurisdiction
+config:
+  Remand:
+    statcan_id: 35100154
+    column constraints:
+      Custodial and community supervision: Remand, actual-in count
+  Sentenced:
+    statcan_id: 35100154
+    column constraints:
+      Custodial and community supervision: Sentenced, actual-in count
+  Other:
+    statcan_id: 35100154
+    column constraints:
+      Custodial and community supervision: Other statuses, actual-in count
+  Federal:
+    statcan_id: 35100155
+    column constraints:
+      Custodial and community supervision: Actual-in count
