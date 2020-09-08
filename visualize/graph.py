@@ -26,6 +26,10 @@ class Graph:
             for column, val in conf.get('column constraints', {}).items():
                 mask &= table[column] == val
             pivot = table.loc[mask].pivot('REF_DATE', 'GEO', 'VALUE')
+
+            if 'remove geo' in conf:
+                del pivot[conf['remove geo']]
+
             if 'Northwest Territories including Nunavut' in pivot.columns:
                 pivot['Northwest Territories including Nunavut'] = \
                     pivot['Northwest Territories including Nunavut'].fillna(0) + \
@@ -33,6 +37,7 @@ class Graph:
                     pivot['Nunavut'].fillna(0)
                 del pivot['Northwest Territories']
                 del pivot['Nunavut']
+
             pivot = pivot.interpolate().fillna('null')
             self.json['data'].append({
                 'name': name,
