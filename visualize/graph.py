@@ -19,7 +19,7 @@ class Graph:
         self.table_cache = {}
 
     def build(self):
-        self.json = {'name': self.name, 'data': {}}
+        self.json = {'name': self.name, 'data': []}
         for name, conf in self.config.items():
             table = self._get_table(conf['statcan_id'])
             mask = pd.Series(True, index=table.index)
@@ -34,7 +34,11 @@ class Graph:
                 del pivot['Northwest Territories']
                 del pivot['Nunavut']
             pivot = pivot.interpolate()
-            self.json['data'][name] = pivot.to_json()
+            self.json['data'].append({
+                'name': name,
+                'series': [{'name': col, 'values': pivot[col].values.tolist()} for col in pivot.columns],
+                'dates': pivot.index.values.tolist()
+            })
 
     def _get_table(self, statcan_id):
         if statcan_id not in self.table_cache:
