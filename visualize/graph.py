@@ -38,7 +38,7 @@ class Graph:
                 del pivot['Northwest Territories']
                 del pivot['Nunavut']
 
-            pivot = pivot.interpolate().fillna('null')
+            pivot = pivot.interpolate().dropna()
             self.json['data'].append({
                 'name': name,
                 'series': [{'name': col, 'values': pivot[col].values.tolist()} for col in pivot.columns],
