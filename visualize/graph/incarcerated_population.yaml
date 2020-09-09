@@ -1,5 +1,10 @@
 name: Adult Incarcerated Population by Location
 config:
+  Total Provincial:
+    statcan_id: 35100154
+    column constraints:
+      Custodial and community supervision: Total actual-in count
+    remove geo: Provinces and Territories
   Remand:
     statcan_id: 35100154
     column constraints:
