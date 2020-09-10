@@ -1,0 +1,38 @@
+name: Operating Expenditures
+config:
+  Total operating expenditures:
+    statcan_id: 35100013
+    column constraints:
+      Operating expenditures: Total operating expenditures
+      UOM: Current dollars
+    remove geo: Provinces and territories
+  Custodial services:
+    statcan_id: 35100013
+    column constraints:
+      Operating expenditures: Custodial services
+      UOM: Current dollars
+    remove geo: Provinces and territories
+  Average daily inmate cost:
+    statcan_id: 35100013
+    column constraints:
+      Operating expenditures: Average daily inmate cost
+      UOM: Current dollars
+    remove geo: Provinces and territories
+  Average daily inmate cost:
+    statcan_id: 35100013
+    column constraints:
+      Operating expenditures: Average daily inmate cost
+      UOM: Current dollars
+    remove geo: Provinces and territories
+  Headquarters and central services:
+    statcan_id: 35100013
+    column constraints:
+      Operating expenditures: Headquarters and central services
+      UOM: Current dollars
+    remove geo: Provinces and territories
+  Parole boards:
+    statcan_id: 35100013
+    column constraints:
+      Operating expenditures: Parole boards
+      UOM: Current dollars
+    remove geo: Provinces and territories
