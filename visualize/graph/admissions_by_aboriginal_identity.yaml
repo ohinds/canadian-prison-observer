@@ -1,4 +1,6 @@
 name: Admissions by Aboriginal Identity
+options:
+  rates: True
 data:
   Aboriginal identity:
     statcan_id: 35100016

@@ -37,16 +37,17 @@ class Graph:
                 respop = self._combine_nwt_nunavut(respop)
 
             counts = counts.interpolate().fillna(-1)
-            respop = respop[counts.columns]
-            rates = 100000 * counts / respop.loc[counts.index]
+            if self.options['rates']:
+                respop = respop[counts.columns]
+                rates = 100000 * counts / respop.loc[counts.index]
+                rates[rates < 0] = 'null'
 
             counts[counts < 0] = 'null'
-            rates[rates < 0] = 'null'
 
             self.json['data'].append({
                 'name': name,
                 'counts': [{'name': col, 'values': counts[col].values.tolist()} for col in counts.columns],
-                'rates': [{'name': col, 'values': rates[col].values.tolist()} for col in rates.columns],
+                'rates': [{'name': col, 'values': rates[col].values.tolist()} for col in rates.columns] if self.options['rates'] else 'null',
                 'dates': counts.index.values.tolist()
             })
 

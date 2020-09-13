@@ -1,6 +1,6 @@
 name: Operating Expenditures
 options:
-  skip_rates: True
+  rates: False
 data:
   Total operating expenditures:
     statcan_id: 35100013

@@ -1,4 +1,6 @@
 name: Adult Incarcerated Population by Location
+options:
+  rates: True
 data:
   Total Provincial:
     statcan_id: 35100154
