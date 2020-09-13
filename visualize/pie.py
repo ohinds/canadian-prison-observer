@@ -9,7 +9,7 @@ import attr
 import pandas as pd
 import yaml
 
-from ingest import statcan
+from ingest.statcan import StatCan
 
 
 @attr.s(auto_attribs=True)
@@ -38,7 +38,7 @@ class Pie:
         self.name = yaml_config['name']
         self.years = set()
         self.config = yaml_config['config']
-        self.table_cache = {}
+        self.statcan = StatCan()
 
     def build(self):
         self.tree = self._build_tree('root', node_config=self.config)
@@ -54,7 +54,7 @@ class Pie:
             if 'statcan_id' not in conf:
                 node.add_child(self._build_tree(name, conf))
             else:
-                table = self._get_table(conf['statcan_id'])
+                table = self.statcan.get(conf['statcan_id'])
                 mask = pd.Series(True, index=table.index)
                 for column, val in conf.get('column constraints', {}).items():
                     mask &= table[column] == val
@@ -64,11 +64,6 @@ class Pie:
                 # TODO add interpolation here
                 node.add_child(Node(name=name, values=values.to_dict()))
         return node
-
-    def _get_table(self, statcan_id):
-        if statcan_id not in self.table_cache:
-            self.table_cache[statcan_id] = statcan.get_table(statcan_id)
-        return self.table_cache[statcan_id]
 
 
 def main(argv):

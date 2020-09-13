@@ -1,5 +1,5 @@
 name: Adult Incarcerated Population by Location
-config:
+data:
   Total Provincial:
     statcan_id: 35100154
     column constraints:

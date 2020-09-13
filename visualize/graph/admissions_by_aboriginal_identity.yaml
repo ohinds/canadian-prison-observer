@@ -1,5 +1,5 @@
 name: Admissions by Aboriginal Identity
-config:
+data:
   Aboriginal identity:
     statcan_id: 35100016
     column constraints:

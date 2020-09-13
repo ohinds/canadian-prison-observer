@@ -1,5 +1,7 @@
 name: Operating Expenditures
-config:
+options:
+  skip_rates: True
+data:
   Total operating expenditures:
     statcan_id: 35100013
     column constraints:
