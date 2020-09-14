@@ -39,7 +39,7 @@ class Graph:
             counts = counts.interpolate().fillna(-1)
             if self.options['rates']:
                 respop = respop[counts.columns]
-                rates = 100000 * counts / respop.loc[counts.index]
+                rates = (100000 * counts / respop.loc[counts.index]).round(1)
                 rates[rates < 0] = 'null'
 
             counts[counts < 0] = 'null'
@@ -95,7 +95,7 @@ class Graph:
             }
 
             for region, provinces in region_map.items():
-                respop[region] = respop[provinces].sum()
+                respop[region] = respop[provinces].sum(axis=1)
                 for province in provinces:
                     del respop[province]
 
