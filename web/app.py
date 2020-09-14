@@ -23,6 +23,18 @@ Canadian Prison Observer
     if (name === "type") return Inspector.into("#observablehq-829185ef .observablehq-type")();
   });
 </script>
+<div id="observablehq-252f8b55">
+  <div class="observablehq-inputs"></div>
+  <div class="observablehq-chart"></div>
+</div>
+<script type="module">
+  import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+  import define from "https://api.observablehq.com/@ohinds/graphs-by-province.js?v=3";
+  (new Runtime).module(define, name => {
+    if (name === "inputs") return Inspector.into("#observablehq-252f8b55 .observablehq-inputs")();
+    if (name === "chart") return Inspector.into("#observablehq-252f8b55 .observablehq-chart")();
+  });
+</script>
 </body>
 </html>
 """

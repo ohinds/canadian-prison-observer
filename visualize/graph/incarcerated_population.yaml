@@ -1,0 +1,24 @@
+name: Adult Incarcerated Population by Location
+options:
+  rates: True
+data:
+  Total Provincial:
+    statcan_id: 35100154
+    column constraints:
+      Custodial and community supervision: Total actual-in count
+    remove geo: Provinces and Territories
+  Remand:
+    statcan_id: 35100154
+    column constraints:
+      Custodial and community supervision: Remand, actual-in count
+    remove geo: Provinces and Territories
+  Sentenced:
+    statcan_id: 35100154
+    column constraints:
+      Custodial and community supervision: Sentenced, actual-in count
+    remove geo: Provinces and Territories
+  Federal:
+    statcan_id: 35100155
+    column constraints:
+      Custodial and community supervision: Actual-in count
+    remove geo: Canada

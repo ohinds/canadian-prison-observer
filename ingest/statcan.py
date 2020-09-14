@@ -27,34 +27,43 @@ STATCAN_IDS = {
     35100003: 'Average counts of young persons in provincial and territorial correctional services',
     35100154: 'Average counts of adults in provincial and territorial correctional programs',
     35100155: 'Average counts of offenders in federal programs, Canada and regions',
+    17100005: 'Population estimates on July 1st, by age and sex',
 }
 
+RESIDENT_POPULATION_STATCAN_ID = 17100005
 
-def get_table(statcan_id):
-    url = f'https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/{statcan_id}/en'
-    response = requests.get(url)
-    if not response.ok:
-        raise StatCanDownloadError(f"Failed to download information for {statcan_id}\n"
-                                   f"Error was {response.text}")
 
-    content = json.loads(response.content)
-    zip_url = content['object']
-    zip_response = requests.get(zip_url, stream=False)
-    if not zip_response.ok:
-        raise StatCanDownloadError(f"Failed to download zip file for {statcan_id}\n"
-                                   f"Error was {zip_response.text}")
+class StatCan:
+    def __init__(self):
+        self._cache = {}
 
-    zip_content = zipfile.ZipFile(io.BytesIO(zip_response.content))
-    return pd.read_csv(zip_content.open(f'{statcan_id}.csv'))
+    def get(self, statcan_id):
+        if statcan_id not in self._cache:
+            url = f'https://www150.statcan.gc.ca/t1/wds/rest/getFullTableDownloadCSV/{statcan_id}/en'
+            response = requests.get(url)
+            if not response.ok:
+                raise StatCanDownloadError(f"Failed to download information for {statcan_id}\n"
+                                           f"Error was {response.text}")
+
+            content = json.loads(response.content)
+            zip_url = content['object']
+            zip_response = requests.get(zip_url, stream=False)
+            if not zip_response.ok:
+                raise StatCanDownloadError(f"Failed to download zip file for {statcan_id}\n"
+                                           f"Error was {zip_response.text}")
+
+            zip_content = zipfile.ZipFile(io.BytesIO(zip_response.content))
+            self._cache[statcan_id] = pd.read_csv(zip_content.open(f'{statcan_id}.csv'))
+        return self._cache[statcan_id]
+
+    def get_resident_pop(self):
+        return self.get(RESIDENT_POPULATION_STATCAN_ID)
 
 
 def main(argv):
-    tables = {}
+    statcan = StatCan()
     for statcan_id, name in STATCAN_IDS.items():
-        tables[statcan_id] = get_table(statcan_id)
-        tables[statcan_id].to_csv(f'{statcan_id}.csv')
-
-    breakpoint()
+        statcan.get(statcan_id).to_csv(f'{statcan_id}.csv')
 
 
 if __name__ == "__main__":
