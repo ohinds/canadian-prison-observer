@@ -1,0 +1,24 @@
+name: Provincial Admissions by Type
+options:
+  rates: True
+data:
+  Total:
+    statcan_id: 35100014
+    column constraints:
+      Custodial and community admissions: Total custodial admissions
+    remove geo: Provinces and territories
+  Sentenced:
+    statcan_id: 35100014
+    column constraints:
+      Custodial and community admissions: Sentenced
+    remove geo: Provinces and territories
+  Remand:
+    statcan_id: 35100014
+    column constraints:
+      Custodial and community admissions: Remand
+    remove geo: Provinces and territories
+  Other custodial statuses:
+    statcan_id: 35100014
+    column constraints:
+      Custodial and community admissions: Other custodial statuses
+    remove geo: Provinces and territories
