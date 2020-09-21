@@ -6,5 +6,7 @@ data:
   remove_geo:
     - Provinces and territories
     - Federal
+  remove_measures:
+    - Total, custodial admissions
   column_constraints:
     Custodial admissions: Remand
