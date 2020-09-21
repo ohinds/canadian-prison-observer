@@ -22,8 +22,8 @@ class GraphWithinProvince(Graph):
                 continue
 
             mask = table.GEO == geo
-            for remove_measure in self.data.get('remove_measure', []):
-                mask &= table[self.data['measure'] != remove_measure]
+            for remove_measure in self.data.get('remove_measures', []):
+                mask &= table[self.data['measure']] != remove_measure
             counts = table.loc[mask].pivot('REF_DATE', self.data['measure'], 'VALUE')
             counts = counts.interpolate().fillna('null')
             self.json['data'].append({
