@@ -7,6 +7,6 @@ data:
     - Provinces and territories
     - Federal
   remove_measures:
-    - Total, custodial admissions by Sex
+    - Total, custodial admission by sex
   column_constraints:
     Custodial admissions: Total, custodial admissions
