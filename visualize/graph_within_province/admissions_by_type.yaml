@@ -1,4 +1,4 @@
-name: Provincial Admissions by Type
+name: Admissions by Type
 options:
 data:
   statcan_id: 35100014

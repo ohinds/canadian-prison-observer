@@ -1,4 +1,4 @@
-name: Provincial Admissions by Aboriginal Identity
+name: Remand Admissions by Aboriginal Identity
 options:
 data:
   statcan_id: 35100016
@@ -7,6 +7,6 @@ data:
     - Provinces and territories
     - Federal
   remove_measures:
-    - Total, custodial admissions
+    - Total, custodial admissions by Aboriginal identity
   column_constraints:
-    Custodial admissions: Total, custodial admissions
+    Custodial admissions: Remand

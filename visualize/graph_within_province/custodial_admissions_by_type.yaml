@@ -1,4 +1,4 @@
-name: Provincial Custodial Admissions by Type
+name: Custodial Admissions by Type
 options:
 data:
   statcan_id: 35100014
