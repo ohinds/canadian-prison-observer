@@ -1,4 +1,4 @@
-name: Provincial Admissions by Aboriginal Identity
+name: Provincial Remand Admissions by Aboriginal Identity
 options:
 data:
   statcan_id: 35100016
