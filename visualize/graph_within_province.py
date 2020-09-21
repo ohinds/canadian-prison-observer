@@ -17,7 +17,7 @@ class GraphWithinProvince(Graph):
             'data': []
         }
 
-        for geo in table.GEO.unique():
+        for geo in sorted(table.GEO.unique()):
             mask = table.GEO == geo
             counts = table.loc[mask].pivot('REF_DATE', self.data['measure'], 'VALUE')
             counts = counts.interpolate().fillna('null')
