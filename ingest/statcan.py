@@ -53,7 +53,7 @@ class StatCan:
                                            f"Error was {zip_response.text}")
 
             zip_content = zipfile.ZipFile(io.BytesIO(zip_response.content))
-            self._cache[statcan_id] = pd.read_csv(zip_content.open(f'{statcan_id}.csv'))
+            self._cache[statcan_id] = pd.read_csv(zip_content.open(f'{statcan_id}.csv'), low_memory=False)
         return self._cache[statcan_id]
 
     def get_resident_pop(self):

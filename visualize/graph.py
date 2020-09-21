@@ -62,7 +62,7 @@ class Graph:
         return counts
 
     def _get_resident_pop(self, federal_regions=False):
-        respop = self.statcan.get_resident_pop()
+        respop = self.statcan.get_resident_pop().copy()
         respop = respop.loc[(respop.Sex == 'Both sexes') & (respop['Age group'] == 'All ages')]
         respop['REF_DATE'] = (respop.REF_DATE - 1).astype(str) + '/' + respop.REF_DATE.astype(str)
         respop = respop.pivot('REF_DATE', 'GEO', 'VALUE')
