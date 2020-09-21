@@ -3,3 +3,6 @@ options:
 data:
   statcan_id: 35100014
   measure: Custodial and community admissions
+  remove_geo:
+    - Provinces and territories
+    - Federal

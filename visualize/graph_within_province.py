@@ -18,6 +18,9 @@ class GraphWithinProvince(Graph):
         }
 
         for geo in sorted(table.GEO.unique()):
+            if geo in self.data['remove_geo']:
+                continue
+
             mask = table.GEO == geo
             counts = table.loc[mask].pivot('REF_DATE', self.data['measure'], 'VALUE')
             counts = counts.interpolate().fillna('null')
