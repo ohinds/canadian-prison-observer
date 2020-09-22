@@ -15,17 +15,18 @@ class BarCompareProvinces(Graph):
     def build(self):
         table = self.statcan.get(self.data['statcan_id'])
         table = table.loc[~table[self.data['measure']].isin(self.data.get('remove_measures', []))]
-        table = table.loc[~table.GEO.isin(self.data.get('remove_geos', []))]
+        table = table.loc[~table.GEO.isin(self.data.get('remove_geo', []))]
         for constraint_column, contraint_value in self.data.get('column_constraints', {}).items():
             table = table.loc[table[constraint_column] == contraint_value]
 
         geos = table.GEO.sort_values().unique()
         years = table.REF_DATE.sort_values().unique()
+        measures = table[self.data['measure']].unique()
         self.json = {
             'name':  self.name,
             'data': {year: {geo: {} for geo in geos} for year in years},
         }
-        for value in table[self.data['measure']].unique():
+        for value in measures:
             counts = table.loc[table[self.data['measure']] == value].pivot('REF_DATE', 'GEO', 'VALUE')
             counts = counts.interpolate().fillna('null')
             for year in years:
@@ -37,11 +38,12 @@ class BarCompareProvinces(Graph):
 
         self.json['data'] = [
             {
-                'year': year, 'data': [
+                'year': year,
+                'columns': measures.tolist(),
+                'data': [
                     {'name': key, **val} for key, val in self.json['data'][year].items()
                 ]
-            }
-            for year in self.json['data'].keys()
+            } for year in self.json['data'].keys()
         ]
 
     def _combine_nwt_nunavut(self, counts):
