@@ -7,9 +7,10 @@ data:
     - Provinces and territories
     - Federal
   remove_measures:
-    - Conditional sentences
+    - Conditional sentence
     - Probation and conditional sentences
     - Probation
     - Other community programs
     - Total community admissions
+    - Total custodial admissions
     - Unknown community admissions

@@ -24,7 +24,7 @@
 
     <hr>
 
-    <h1>Compare Provinces</h1>
+    <h1>Compare Provinces Over Time</h1>
     <div id="observablehq-252f8b55">
       <div class="observablehq-inputs"></div>
       <div class="observablehq-chart"></div>
@@ -53,5 +53,24 @@
           if (name === "chart") return Inspector.into("#observablehq-ff66759c .observablehq-chart")();
       });
     </script>
+
+    <hr>
+
+    <h1>Compare Provinces In A Given Year</h1>
+    <div id="observablehq-4c67ae87">
+      <div class="observablehq-inputs"></div>
+      <div class="observablehq-key"></div>
+      <div class="observablehq-chart"></div>
+    </div>
+    <script type="module">
+      import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+      import define from "https://api.observablehq.com/@ohinds/across-province-bar-charts.js?v=3";
+      (new Runtime).module(define, name => {
+          if (name === "inputs") return Inspector.into("#observablehq-4c67ae87 .observablehq-inputs")();
+          if (name === "key") return Inspector.into("#observablehq-4c67ae87 .observablehq-key")();
+          if (name === "chart") return Inspector.into("#observablehq-4c67ae87 .observablehq-chart")();
+      });
+    </script>
+
   </body>
 </html>

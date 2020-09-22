@@ -6,3 +6,6 @@ data:
   remove_geo:
     - Provinces and territories
     - Federal
+  remove_measures:
+    - Total community admissions
+    - Total custodial admissions
