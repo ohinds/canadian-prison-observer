@@ -1,0 +1,12 @@
+name: Sentenced Admissions by Gender
+options:
+data:
+  statcan_id: 35100015
+  measure: Sex
+  remove_geo:
+    - Provinces and territories
+    - Federal
+  remove_measures:
+    - Total, custodial admission by sex
+  column_constraints:
+    Custodial admissions: Sentenced

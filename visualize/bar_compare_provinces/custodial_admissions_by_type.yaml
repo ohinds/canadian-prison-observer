@@ -1,0 +1,15 @@
+name: Custodial Admissions by Type
+options:
+data:
+  statcan_id: 35100014
+  measure: Custodial and community admissions
+  remove_geo:
+    - Provinces and territories
+    - Federal
+  remove_measures:
+    - Conditional sentences
+    - Probation and conditional sentences
+    - Probation
+    - Other community programs
+    - Total community admissions
+    - Unknown community admissions
