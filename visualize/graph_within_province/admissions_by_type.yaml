@@ -6,3 +6,11 @@ data:
   remove_geo:
     - Provinces and territories
     - Federal
+  remove_measures:
+    - Conditional sentence
+    - Probation and conditional sentences
+    - Probation
+    - Other community programs
+    - Total community admissions
+    - Total custodial admissions
+    - Unknown community admissions
