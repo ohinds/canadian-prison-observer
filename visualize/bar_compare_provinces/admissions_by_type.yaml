@@ -1,5 +1,6 @@
 name: Admissions by Type
 options:
+  rates: True
 data:
   statcan_id: 35100014
   measure: Custodial and community admissions

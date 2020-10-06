@@ -1,5 +1,7 @@
 name: Admissions by Gender
 options:
+  rates: True
+  rate_gender: True
 data:
   statcan_id: 35100015
   measure: Sex

@@ -20,6 +20,7 @@ class BarCompareProvinces(Graph):
         geos = table.GEO.sort_values().unique()
         years = table.REF_DATE.sort_values().unique()
         measures = table[self.data['measure']].unique()
+        compute_rates = self.options.get('rates', False)
         res_pop = self._get_resident_pop()
         self.json = {
             'name':  self.name,
@@ -29,18 +30,23 @@ class BarCompareProvinces(Graph):
         for value in measures:
             counts = table.loc[table[self.data['measure']] == value].pivot('REF_DATE', 'GEO', 'VALUE')
             counts = counts.interpolate().fillna(-1)
-            rates = (100000 * counts / res_pop.loc[counts.index]).round(1)
+
+            if compute_rates:
+                rates = (100000 * counts / res_pop.loc[counts.index]).round(1)
+                rates[(rates < 0) | (rates.isnull())] = 'null'
+
             counts[counts < 0] = 'null'
-            rates[(rates < 0) | (rates.isnull())] = 'null'
+
             for year in years:
                 for geo in geos:
                     val = 'null'
-                    rate = 'null'
                     if geo in counts.columns:
                         val = counts.loc[year, geo]
-                    if geo in rates.columns:
-                        rate = rates.loc[year, geo]
                     self.json['counts'][year][geo][value] = val
+
+                    rate = 'null'
+                    if compute_rates and geo in rates.columns:
+                        rate = rates.loc[year, geo]
                     self.json['rates'][year][geo][value] = rate
 
         self.json['data'] = [
@@ -105,7 +111,7 @@ def main(argv):
     if not args.bar_name:
         args.bar_name = [
             graph.replace('.yaml', '')
-            for graph in sorted(glob.glob(os.path.join(os.path.dirname(__file__), 'graph_within_province', '*.yaml')))
+            for graph in sorted(glob.glob(os.path.join(os.path.dirname(__file__), 'bar_compare_provinces', '*.yaml')))
         ]
 
     bars = []

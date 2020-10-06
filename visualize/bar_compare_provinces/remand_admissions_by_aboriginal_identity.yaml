@@ -1,5 +1,6 @@
 name: Remand Admissions by Aboriginal Identity
 options:
+  rates: False
 data:
   statcan_id: 35100016
   measure: Aboriginal identity
