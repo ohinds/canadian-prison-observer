@@ -27,6 +27,7 @@
     <h1>Compare Provinces Over Time</h1>
     <div id="observablehq-252f8b55">
       <div class="observablehq-inputs"></div>
+      <div class="observablehq-key"></div>
       <div class="observablehq-chart"></div>
     </div>
     <script type="module">
@@ -34,6 +35,7 @@
       import define from "https://api.observablehq.com/@ohinds/graphs-by-province.js?v=3";
       (new Runtime).module(define, name => {
           if (name === "inputs") return Inspector.into("#observablehq-252f8b55 .observablehq-inputs")();
+          if (name === "key") return Inspector.into("#observablehq-252f8b55 .observablehq-key")();
           if (name === "chart") return Inspector.into("#observablehq-252f8b55 .observablehq-chart")();
       });
     </script>
@@ -43,6 +45,7 @@
     <h1>Explore Within Province</h1>
     <div id="observablehq-ff66759c">
       <div class="observablehq-inputs"></div>
+      <div class="observablehq-key"></div>
       <div class="observablehq-chart"></div>
     </div>
     <script type="module">
@@ -50,6 +53,7 @@
       import define from "https://api.observablehq.com/@ohinds/graphs-within-province.js?v=3";
       (new Runtime).module(define, name => {
           if (name === "inputs") return Inspector.into("#observablehq-ff66759c .observablehq-inputs")();
+          if (name === "key") return Inspector.into("#observablehq-ff66759c .observablehq-key")();
           if (name === "chart") return Inspector.into("#observablehq-ff66759c .observablehq-chart")();
       });
     </script>
