@@ -38,25 +38,15 @@ class BarCompareProvinces(Graph):
             {
                 'year': year,
                 'columns': measures.tolist(),
-                'data': [
+                'counts': [
                     {'name': key, **val} for key, val in self.json['data'][year].items()
                 ]
             } for year in self.json['data'].keys()
         ]
 
-    def _combine_nwt_nunavut(self, counts):
-        counts['Northwest Territories including Nunavut'] = \
-            counts['Northwest Territories including Nunavut'].fillna(0) + \
-            counts['Northwest Territories'].fillna(0) + \
-            counts['Nunavut'].fillna(0)
-        del counts['Northwest Territories']
-        del counts['Nunavut']
-
-        return counts
-
-    def _get_resident_pop(self, federal_regions=False):
+    def _get_resident_pop(self, federal_regions=False, gender='Both sexes', age='All ages'):
         respop = self.statcan.get_resident_pop().copy()
-        respop = respop.loc[(respop.Sex == 'Both sexes') & (respop['Age group'] == 'All ages')]
+        respop = respop.loc[(respop.Sex == gender) & (respop['Age group'] == age)]
         respop['REF_DATE'] = (respop.REF_DATE - 1).astype(str) + '/' + respop.REF_DATE.astype(str)
         respop = respop.pivot('REF_DATE', 'GEO', 'VALUE')
 
