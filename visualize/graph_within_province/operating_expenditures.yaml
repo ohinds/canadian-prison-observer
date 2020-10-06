@@ -1,0 +1,14 @@
+name: Operating Expenditures
+options:
+  rates: True
+data:
+  statcan_id: 35100013
+  measure: Operating expenditures
+  remove_geo:
+    - Provinces and territories
+    - Federal
+  remove_measures:
+    - Total operating expenditures
+    - Average daily inmate cost
+  column_constraints:
+    UOM: Current dollars
