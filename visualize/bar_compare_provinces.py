@@ -21,7 +21,6 @@ class BarCompareProvinces(Graph):
         years = table.REF_DATE.sort_values().unique()
         measures = table[self.data['measure']].unique()
         compute_rates = self.options.get('rates', False)
-        res_pop = self._get_resident_pop()
         self.json = {
             'name':  self.name,
             'counts': {year: {geo: {} for geo in geos} for year in years},
@@ -30,6 +29,11 @@ class BarCompareProvinces(Graph):
         for value in measures:
             counts = table.loc[table[self.data['measure']] == value].pivot('REF_DATE', 'GEO', 'VALUE')
             counts = counts.interpolate().fillna(-1)
+
+            if self.options.get('rate_gender', False):
+                res_pop = self._get_resident_pop(gender=value)
+            else:
+                res_pop = self._get_resident_pop()
 
             if compute_rates:
                 rates = (100000 * counts / res_pop.loc[counts.index]).round(1)
@@ -62,7 +66,8 @@ class BarCompareProvinces(Graph):
             } for year in self.json['counts'].keys()
         ]
 
-    def _get_resident_pop(self, federal_regions=False, gender='Both sexes', age='All ages'):
+    def _get_resident_pop(self, federal_regions=False, gender='Both sexe', age='All ages'):
+        gender = gender + 's'
         respop = self.statcan.get_resident_pop().copy()
         respop = respop.loc[(respop.Sex == gender) & (respop['Age group'] == age)]
         respop['REF_DATE'] = (respop.REF_DATE - 1).astype(str) + '/' + respop.REF_DATE.astype(str)

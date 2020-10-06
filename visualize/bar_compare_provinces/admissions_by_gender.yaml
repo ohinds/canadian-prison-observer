@@ -10,5 +10,6 @@ data:
     - Federal
   remove_measures:
     - Total, custodial admission by sex
+    - Sex unknown
   column_constraints:
     Custodial admissions: Total, custodial admissions
