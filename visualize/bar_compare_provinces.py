@@ -20,31 +20,40 @@ class BarCompareProvinces(Graph):
         geos = table.GEO.sort_values().unique()
         years = table.REF_DATE.sort_values().unique()
         measures = table[self.data['measure']].unique()
+        res_pop = self._get_resident_pop()
         self.json = {
             'name':  self.name,
-            'data': {year: {geo: {} for geo in geos} for year in years},
+            'counts': {year: {geo: {} for geo in geos} for year in years},
+            'rates': {year: {geo: {} for geo in geos} for year in years},
         }
         for value in measures:
             counts = table.loc[table[self.data['measure']] == value].pivot('REF_DATE', 'GEO', 'VALUE')
-            counts = counts.interpolate().fillna('null')
+            counts = counts.interpolate().fillna(-1)
+            rates = 100000 * counts / res_pop.loc[counts.index]
+            counts[counts < 0] = 'null'
+            rates[(rates < 0) | (rates.isnull())] = 'null'
             for year in years:
                 for geo in geos:
                     val = 'null'
+                    rate = 'null'
                     if geo in counts.columns:
                         val = counts.loc[year, geo]
-                    self.json['data'][year][geo][value] = val
+                    if geo in rates.columns:
+                        rate = rates.loc[year, geo]
+                    self.json['counts'][year][geo][value] = val
+                    self.json['rates'][year][geo][value] = rate
 
         self.json['data'] = [
             {
                 'year': year,
                 'columns': measures.tolist(),
                 'counts': [
-                    {'name': key, **val} for key, val in self.json['data'][year].items()
+                    {'name': key, **val} for key, val in self.json['counts'][year].items()
                 ],
                 'rates': [
-                    {'name': key, **val} for key, val in self.json['data'][year].items()
+                    {'name': key, **val} for key, val in self.json['rates'][year].items()
                 ],
-            } for year in self.json['data'].keys()
+            } for year in self.json['counts'].keys()
         ]
 
     def _get_resident_pop(self, federal_regions=False, gender='Both sexes', age='All ages'):
