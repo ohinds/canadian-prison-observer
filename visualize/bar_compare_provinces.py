@@ -29,7 +29,7 @@ class BarCompareProvinces(Graph):
         for value in measures:
             counts = table.loc[table[self.data['measure']] == value].pivot('REF_DATE', 'GEO', 'VALUE')
             counts = counts.interpolate().fillna(-1)
-            rates = 100000 * counts / res_pop.loc[counts.index]
+            rates = (100000 * counts / res_pop.loc[counts.index]).round(1)
             counts[counts < 0] = 'null'
             rates[(rates < 0) | (rates.isnull())] = 'null'
             for year in years:
