@@ -40,7 +40,10 @@ class BarCompareProvinces(Graph):
                 'columns': measures.tolist(),
                 'counts': [
                     {'name': key, **val} for key, val in self.json['data'][year].items()
-                ]
+                ],
+                'rates': [
+                    {'name': key, **val} for key, val in self.json['data'][year].items()
+                ],
             } for year in self.json['data'].keys()
         ]
 
