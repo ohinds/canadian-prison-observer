@@ -53,15 +53,31 @@ class BarCompareProvinces(Graph):
                         rate = rates.loc[year, geo]
                     self.json['rates'][year][geo][value] = rate
 
+        order = [
+            'Yukon',
+            'Northwest Territories',
+            'Nunavut',
+            'British Columbia',
+            'Alberta',
+            'Saskatchewan',
+            'Manitoba',
+            'Ontario',
+            'Quebec',
+            'New Brunswick',
+            'Nova Scotia',
+            'Newfoundland and Labrador',
+            'Prince Edward Island',
+        ]
+
         self.json['data'] = [
             {
                 'year': year,
                 'columns': measures.tolist(),
                 'counts': [
-                    {'name': key, **val} for key, val in self.json['counts'][year].items()
+                    {'name': key, **self.json['counts'][year][key]} for key in order
                 ],
                 'rates': [
-                    {'name': key, **val} for key, val in self.json['rates'][year].items()
+                    {'name': key, **self.json['rates'][year][key]} for key in order
                 ],
             } for year in self.json['counts'].keys()
         ]
