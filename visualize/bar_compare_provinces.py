@@ -54,9 +54,6 @@ class BarCompareProvinces(Graph):
                     self.json['rates'][year][geo][value] = rate
 
         order = [
-            'Yukon',
-            'Northwest Territories',
-            'Nunavut',
             'British Columbia',
             'Alberta',
             'Saskatchewan',
@@ -64,9 +61,12 @@ class BarCompareProvinces(Graph):
             'Ontario',
             'Quebec',
             'New Brunswick',
+            'Prince Edward Island',
             'Nova Scotia',
             'Newfoundland and Labrador',
-            'Prince Edward Island',
+            'Yukon',
+            'Northwest Territories',
+            'Nunavut',
         ]
 
         self.json['data'] = [
