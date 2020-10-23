@@ -1,0 +1,131 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Interactive Prison Data {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- Main content -->
+<section class="slice py-1">
+  <div class="container">
+    <div class="row row-grid align-items-center">
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 text-center">
+        <h3 class="display-4 text-left text-md-left mb-3">
+          <strong class="text-primary">Interactive Prison Data</strong>
+        </h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 text-center mb-6">
+        <h3 class="display-6 text-left text-md-left mb-3">
+          <strong class="text-primary">Pies</strong>
+        </h3>
+        <div id="observablehq-829185ef">
+          <div class="observablehq-inputs"></div>
+          <div class="observablehq-viewof-sunburst"></div>
+          <div class="observablehq-type"></div>
+        </div>
+        <script type="module">
+          import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+          import define from "https://api.observablehq.com/@ohinds/the-whole-pie-canada.js?v=3";
+          (new Runtime).module(define, name => {
+              if (name === "inputs") return Inspector.into("#observablehq-829185ef .observablehq-inputs")();
+              if (name === "viewof sunburst") return Inspector.into("#observablehq-829185ef .observablehq-viewof-sunburst")();
+              if (name === "type") return Inspector.into("#observablehq-829185ef .observablehq-type")();
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 text-center mb-6">
+        <h3 class="display-6 text-left text-md-left mb-3">
+          <strong class="text-primary">Compare Provinces Over Time</strong>
+        </h3>
+        <div id="observablehq-252f8b55">
+          <div class="observablehq-inputs"></div>
+          <div class="observablehq-key"></div>
+          <div class="observablehq-chart"></div>
+        </div>
+        <script type="module">
+          import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+          import define from "https://api.observablehq.com/@ohinds/graphs-by-province.js?v=3";
+          (new Runtime).module(define, name => {
+              if (name === "inputs") return Inspector.into("#observablehq-252f8b55 .observablehq-inputs")();
+              if (name === "key") return Inspector.into("#observablehq-252f8b55 .observablehq-key")();
+              if (name === "chart") return Inspector.into("#observablehq-252f8b55 .observablehq-chart")();
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 text-center mb-6">
+        <h3 class="display-6 text-left text-md-left mb-3">
+          <strong class="text-primary">Explore Within Province</strong>
+        </h3>
+        <div id="observablehq-ff66759c">
+          <div class="observablehq-inputs"></div>
+          <div class="observablehq-key"></div>
+          <div class="observablehq-chart"></div>
+        </div>
+        <script type="module">
+          import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+          import define from "https://api.observablehq.com/@ohinds/graphs-within-province.js?v=3";
+          (new Runtime).module(define, name => {
+              if (name === "inputs") return Inspector.into("#observablehq-ff66759c .observablehq-inputs")();
+              if (name === "key") return Inspector.into("#observablehq-ff66759c .observablehq-key")();
+              if (name === "chart") return Inspector.into("#observablehq-ff66759c .observablehq-chart")();
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 text-center mb-6">
+        <h3 class="display-6 text-left text-md-left mb-3">
+          <strong class="text-primary">Compare Provinces In A Given Year</strong>
+        </h3>
+        <div id="observablehq-4c67ae87">
+          <div class="observablehq-inputs"></div>
+          <div class="observablehq-key"></div>
+          <div class="observablehq-chart"></div>
+        </div>
+        <script type="module">
+          import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+          import define from "https://api.observablehq.com/@ohinds/across-province-bar-charts.js?v=3";
+          (new Runtime).module(define, name => {
+              if (name === "inputs") return Inspector.into("#observablehq-4c67ae87 .observablehq-inputs")();
+              if (name === "key") return Inspector.into("#observablehq-4c67ae87 .observablehq-key")();
+              if (name === "chart") return Inspector.into("#observablehq-4c67ae87 .observablehq-chart")();
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

@@ -1,12 +1,12 @@
-FROM nginx:stable-alpine
+FROM python:3.8
 
-COPY nginx.conf /etc/nginx/nginx.conf
-RUN mkdir -p /var/log/app_engine
+ENV FLASK_APP run.py
 
-RUN mkdir -p /usr/share/nginx/www/_ah && \
-    echo "healthy" > /usr/share/nginx/www/_ah/health
+COPY run.py gunicorn-cfg.py Pipfile ./
+COPY app app
 
-COPY index.html /usr/share/nginx/www/
-RUN chmod -R a+r /usr/share/nginx/www
+RUN pip install --upgrade pipenv
+RUN pipenv install
 
 EXPOSE 8080
+CMD ["pipenv", "run", "gunicorn", "--config", "gunicorn-cfg.py", "run:app"]
