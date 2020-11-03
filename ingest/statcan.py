@@ -12,22 +12,90 @@ class StatCanDownloadError(Exception):
 
 
 STATCAN_IDS = {
-    35100013: 'Operating expenditures for adult correctional services',
-    35100014: 'Adult admissions to correctional services',
-    35100015: 'Adult custody admissions to correctional services by sex',
-    35100016: 'Adult custody admissions to correctional services by aboriginal identity',
-    35100017: 'Adult custody admissions to correctional services by age group',
-    35100018: 'Adult sentenced custody admissions to correctional services by sex and sentence length ordered',
-    35100019: 'Adult admissions to community services by sex',
-    35100020: 'Adult admissions to community services by aboriginal identity',
-    35100021: 'Adult admissions to community services by age group',
-    35100022: 'Adult admissions to federal correctional services',
-    35100023: 'Adult probation admissions to community services by aggregate probation length ordered',
-    35100024: 'Adult releases from correctional services by sex and aggregate time served',
-    35100003: 'Average counts of young persons in provincial and territorial correctional services',
-    35100154: 'Average counts of adults in provincial and territorial correctional programs',
-    35100155: 'Average counts of offenders in federal programs, Canada and regions',
-    17100005: 'Population estimates on July 1st, by age and sex',
+    35100013: {
+        'name': 'Operating expenditures for adult correctional services',
+        'targets': ['Operating expenditures'],
+        'constraints': {
+            'UOM': 'Current dollars',
+            'SCALAR_FACTOR': 'thousands',
+        },
+    },
+    35100014: {
+        'name': 'Adult admissions to correctional services',
+        'targets': ['Custodial and community admissions'],
+        'constraints': {},
+    },
+    35100015: {
+        'name': 'Adult custody admissions to correctional services by sex',
+        'targets': ['Custodial admissions', 'Sex'],
+        'constraints': {},
+    },
+    35100016: {
+        'name': 'Adult custody admissions to correctional services by aboriginal identity',
+        'targets': ['Custodial admissions', 'Aboriginal identity'],
+        'constraints': {},
+    },
+    35100017: {
+        'name': 'Adult custody admissions to correctional services by age group',
+        'targets': ['Custodial admissions', 'Age group'],
+        'constraints': {},
+    },
+    35100018: {
+        'name': 'Adult sentenced custody admissions to correctional services by sex and sentence length ordered',
+        'targets': ['Sex', 'Sentence length ordered'],
+        'constraints': {},
+    },
+    35100019: {
+        'name': 'Adult admissions to community services by sex',
+        'targets': ['Community admissions', 'Sex'],
+        'constraints': {},
+    },
+    35100020: {
+        'name': 'Adult admissions to community services by aboriginal identity',
+        'targets': ['Community admissions', 'Aboriginal identity'],
+        'constraints': {},
+    },
+    35100021: {
+        'name': 'Adult admissions to community services by age group',
+        'targets': ['Community admissions', 'Age group'],
+        'constraints': {},
+    },
+    35100022: {
+        'name': 'Adult admissions to federal correctional services',
+        'targets': ['Custodial and community admissions'],
+        'constraints': {},
+    },
+    35100023: {
+        'name': 'Adult probation admissions to community services by aggregate probation length ordered',
+        'targets': ['Aggregate probation length ordered'],
+        'constraints': {},
+    },
+    35100024: {
+        'name': 'Adult releases from correctional services by sex and aggregate time served',
+        'targets': ['Custodial releases', 'Sex', 'Aggregate time served'],
+        'constraints': {},
+    },
+    35100003: {
+        'name': 'Average counts of young persons in provincial and territorial correctional services',
+        'targets': ['Custodial and community supervision'],
+        'constraints': {
+            'UOM': 'Persons',
+        },
+    },
+    35100154: {
+        'name': 'Average counts of adults in provincial and territorial correctional programs',
+        'targets': ['Custodial and community supervision'],
+        'constraints': {
+            'UOM': 'Persons',
+        },
+    },
+    35100155: {
+        'name': 'Average counts of offenders in federal programs, Canada and regions',
+        'targets': ['Custodial and community supervision'],
+        'constraints': {
+            'UOM': 'Persons',
+        },
+    },
 }
 
 RESIDENT_POPULATION_STATCAN_ID = 17100005
@@ -62,8 +130,27 @@ class StatCan:
 
 def main(argv):
     statcan = StatCan()
-    for statcan_id, name in STATCAN_IDS.items():
-        statcan.get(statcan_id).to_csv(f'{statcan_id}.csv')
+    joined = pd.DataFrame()
+    for statcan_id, config in STATCAN_IDS.items():
+        df = statcan.get(statcan_id)
+        df = df.set_index(df.REF_DATE + ':' + df.GEO)
+
+        for col, val  in config['constraints'].items():
+            df = df.loc[df[col] == val]
+
+        df['target'] = df[config['targets'][0]]
+        for next_target in config['targets'][1:]:
+            df['target'] = df['target'] + ':' + df[next_target]
+
+        df = df.reset_index().pivot('index', 'target', 'VALUE')
+        df.columns = [config['name'] + ':' + c for c in df.columns]
+
+        if joined.empty:
+            joined = df
+        else:
+            joined = joined.join(df)
+
+    joined.to_csv('data/statcan.csv')
 
 
 if __name__ == "__main__":
