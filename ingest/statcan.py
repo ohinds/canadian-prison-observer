@@ -6,6 +6,8 @@ import zipfile
 
 import pandas as pd
 
+from common.geo import COUNTRY, REGION, PROVINCE
+
 
 class StatCanDownloadError(Exception):
     pass
@@ -148,9 +150,24 @@ def main(argv):
         if joined.empty:
             joined = df
         else:
-            joined = joined.join(df)
+            joined = joined.join(df, how='outer')
 
-    joined.to_csv('data/statcan.csv')
+    cols = sorted(joined.columns)
+    joined['Year'] = joined.index.str.split(':').map(lambda x: x[0])
+    joined['Geo'] = joined.index.str.split(':').map(lambda x: x[1]).str.upper()
+
+    def geo_type(geo):
+        if geo in PROVINCE:
+            return 'PROVINCE'
+        if geo in REGION:
+            return 'REGION'
+        if geo in COUNTRY:
+            return 'COUNTRY'
+
+    joined['Geo Type'] = joined['Geo'].apply(geo_type)
+
+    joined = joined[['Year', 'Geo', 'Geo Type'] + cols]
+    joined.to_csv('data/statcan.csv', index=False)
 
 
 if __name__ == "__main__":
