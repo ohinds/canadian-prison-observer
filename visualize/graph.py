@@ -37,7 +37,7 @@ class Graph:
                 'Pacific Region': [
                     'British Columbia',
                     'Yukon',
-               ],
+                ],
                 'Prairie Region': [
                     'Alberta',
                     'Saskatchewan',

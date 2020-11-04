@@ -24,7 +24,11 @@ class GraphCompareProvinces(Graph):
             if 'remove geo' in conf:
                 del counts[conf['remove geo']]
 
-            respop = self._get_resident_pop(federal_regions=counts.columns[0].endswith('Region'))
+            federal_regions = counts.columns[0].endswith('Region')
+            if self.options.get('rate_gender', False):
+                respop = self._get_resident_pop(gender=conf['column constraints']['Sex'], federal_regions=federal_regions)
+            else:
+                respop = self._get_resident_pop(federal_regions=federal_regions)
             if 'Northwest Territories including Nunavut' in counts.columns:
                 counts = self._combine_nwt_nunavut(counts)
                 respop = self._combine_nwt_nunavut(respop)
@@ -34,13 +38,16 @@ class GraphCompareProvinces(Graph):
                 respop = respop[counts.columns]
                 rates = (100000 * counts / respop.loc[counts.index]).round(1)
                 rates[rates < 0] = 'null'
+            else:
+                rates = counts.copy()
+                rates.loc[:, :] = 'null'
 
             counts[counts < 0] = 'null'
 
             self.json['data'].append({
                 'name': name,
                 'counts': [{'name': col, 'values': counts[col].values.tolist()} for col in counts.columns],
-                'rates': [{'name': col, 'values': rates[col].values.tolist()} for col in rates.columns] if self.options['rates'] else 'null',
+                'rates': [{'name': col, 'values': rates[col].values.tolist()} for col in rates.columns],
                 'dates': counts.index.values.tolist()
             })
 

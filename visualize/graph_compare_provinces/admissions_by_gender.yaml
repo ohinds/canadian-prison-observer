@@ -1,6 +1,7 @@
 name: Admissions by Gender
 options:
-  rates: False
+  rates: True
+  rate_gender: True
 data:
   Female - Total:
     statcan_id: 35100015
