@@ -153,7 +153,7 @@ def main(argv):
             joined = joined.join(df, how='outer')
 
     cols = sorted(joined.columns)
-    joined['Year'] = joined.index.str.split(':').map(lambda x: x[0])
+    joined['Year'] = joined.index.str.split(':').map(lambda x: x[0].split('/')[1]).astype(int)
     joined['Geo'] = joined.index.str.split(':').map(lambda x: x[1]).str.upper()
 
     def geo_type(geo):
