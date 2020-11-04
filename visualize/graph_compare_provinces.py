@@ -35,6 +35,8 @@ class GraphCompareProvinces(Graph):
 
             counts = counts.interpolate().fillna(-1)
             if self.options['rates']:
+                if 'Federal jurisdiction' in counts.columns:
+                    respop['Federal jurisdiction'] = respop.Canada
                 respop = respop[counts.columns]
                 rates = (100000 * counts / respop.loc[counts.index]).round(1)
                 rates[rates < 0] = 'null'
