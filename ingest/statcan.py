@@ -6,7 +6,7 @@ import zipfile
 
 import pandas as pd
 
-from common.geo import COUNTRY, REGION, PROVINCE
+from common.geo import COUNTRY, FEDERAL_REGION_MAP, PROVINCE, REGION
 
 
 class StatCanDownloadError(Exception):
@@ -135,6 +135,7 @@ def main(argv):
     joined = pd.DataFrame()
     for statcan_id, config in STATCAN_IDS.items():
         df = statcan.get(statcan_id)
+        df['GEO'] = df.GEO.str.upper()
         df = df.set_index(df.REF_DATE + ':' + df.GEO)
 
         for col, val  in config['constraints'].items():
@@ -165,9 +166,9 @@ def main(argv):
             return 'COUNTRY'
 
     joined['Geo Type'] = joined['Geo'].apply(geo_type)
-
     joined = joined[['Year', 'Geo', 'Geo Type'] + cols]
     joined.to_csv('data/statcan.csv', index=False)
+    joined.to_excel('data/statcan.xlsx', index=False)
 
 
 if __name__ == "__main__":
