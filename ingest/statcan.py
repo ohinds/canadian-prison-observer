@@ -77,6 +77,31 @@ STATCAN_IDS = {
         'targets': ['Custodial releases', 'Sex', 'Aggregate time served'],
         'constraints': {},
     },
+    35100005: {
+        'name': 'Youth admissions to correctional services',
+        'targets': ['Admissions and releases', 'Correctional services'],
+        'constraints': {},
+    },
+    35100006: {
+        'name': 'Youth admissions to correctional services by age and sex',
+        'targets': ['Correctional services', 'Age at time of admission', 'Sex'],
+        'constraints': {},
+    },
+    35100007: {
+        'name': 'Youth admissions to correctional services by Aboriginal identity and sex',
+        'targets': ['Correctional services', 'Aboriginal identity', 'Sex'],
+        'constraints': {},
+    },
+    35100011: {
+        'name': 'Youth admissions to correctional services by most serious offence',
+        'targets': ['Correctional services', 'Most serious offence'],
+        'constraints': {},
+    },
+    35100004: {
+        'name': 'Youth commencing correctional services, by initial entry status',
+        'targets': ['Initial entry status'],
+        'constraints': {},
+    },
     35100003: {
         'name': 'Average counts of young persons in provincial and territorial correctional services',
         'targets': ['Custodial and community supervision'],
