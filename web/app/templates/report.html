@@ -1,0 +1,32 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Reports {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<section>
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 mb-3 mt-3">
+        <div id="observablehq-561ea091">
+          <div class="observablehq-report"></div>
+        </div>
+        <script type="module">
+          import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+          import define from "https://api.observablehq.com/@ohinds/{{ path }}.js?v=3";
+          (new Runtime).module(define, name => {
+              if (name === "report") return Inspector.into("#observablehq-561ea091 .observablehq-report")();
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

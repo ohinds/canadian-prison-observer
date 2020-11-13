@@ -144,11 +144,11 @@ sup {
   top: -.5em; }
 
 a {
-  color: #008aff;
+  color: #1f77b4;
   text-decoration: none;
   background-color: transparent; }
   a:hover {
-    color: #0061b3;
+    color: #5555ff;
     text-decoration: none; }
 
 a:not([href]) {
@@ -315,7 +315,7 @@ h1, h2, h3, h4, h5, h6,
   font-family: inherit;
   font-weight: 600;
   line-height: 1.5;
-  color: #152c5b; }
+  color: #000000; }
 
 h1, .h1 {
   font-size: 2.5rem; }
@@ -324,28 +324,28 @@ h1, .h1 {
       font-size: calc(1.375rem + 1.5vw) ; } }
 
 h2, .h2 {
-  font-size: 2rem; }
-  @media (max-width: 1200px) {
-    h2, .h2 {
-      font-size: calc(1.325rem + 0.9vw) ; } }
-
-h3, .h3 {
-  font-size: 1.75rem; }
-  @media (max-width: 1200px) {
-    h3, .h3 {
-      font-size: calc(1.3rem + 0.6vw) ; } }
-
-h4, .h4 {
   font-size: 1.5rem; }
   @media (max-width: 1200px) {
+    h2, .h2 {
+      font-size: calc(1.2rem + 0.3vw) ; } }
+
+h3, .h3 {
+  font-size: 1.25rem; }
+  @media (max-width: 1200px) {
+    h3, .h3 {
+      font-size: calc(1.15rem + 0.25vw) ; } }
+
+h4, .h4 {
+  font-size: 1.15rem; }
+  @media (max-width: 1200px) {
     h4, .h4 {
-      font-size: calc(1.275rem + 0.3vw) ; } }
+      font-size: calc(1.125rem + 0.2vw) ; } }
 
 h5, .h5 {
-  font-size: 1.25rem; }
+  font-size: 1.1rem; }
 
 h6, .h6 {
-  font-size: 1rem; }
+  font-size: 1.05rem; }
 
 .lead {
   font-size: 1.125rem;
