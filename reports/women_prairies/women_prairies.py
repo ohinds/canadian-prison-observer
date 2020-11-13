@@ -5,12 +5,13 @@ import matplotlib.pylab as plt
 import pandas as pd
 
 from common.geo import FEDERAL_REGION_MAP
+from common.math import percent_change
 from common.plot import save_plot
 
 from ingest.statcan import StatCan
 
 
-START_YEAR = 2001
+START_YEAR = 2004
 
 
 def load_statcan():
@@ -50,10 +51,15 @@ def prairies_and_national(statcan):
         save_plot(title)
 
     count = interp_and_sum(country)
+    print(count)
+    print(percent_change(count))
 
     prairies_count = interp_and_sum(prairies)
     not_prairies_count = interp_and_sum(not_prairies)
     prair_plot(prairies_count, not_prairies_count, "Women's Carceral Admissions")
+
+    print(percent_change(prairies_count))
+    print(percent_change(not_prairies_count))
 
     prairies_count.name = "Prairies"
     not_prairies_count.name = "The Rest of the Country"
