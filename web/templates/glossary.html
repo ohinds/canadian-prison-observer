@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} {{ title }} - Interactive {% endblock %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<!-- Main content -->
+<section class="slice py-1">
+  <div class="container">
+    <div class="row row-grid align-items-center">
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 text-center">
+        <h2 class="display-6 text-left text-md-left mb-3">
+          <strong class="text-primary">Glossary</strong>
+        </h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 text-left mb-6">
+        {{ terms }}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
