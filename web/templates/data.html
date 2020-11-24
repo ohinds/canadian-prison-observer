@@ -1,20 +1,70 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Data {% endblock %}
+{% block title %} {{ title }} - Interactive {% endblock %}
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
 
+<!-- Data Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mt-4 mt-lg-0 ml-0">
+        <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+          <a class="nav-link" href="/data/national-proportions-interactive" role="button">National Proportions</a>
+        </li>
+        <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+          <a class="nav-link" href="/data/compare-within-province-over-time-interactive" role="button">Compare Within Province</a>
+        </li>
+        <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+          <a class="nav-link" href="/data/compare-provinces-over-time-interactive" role="button">Compare Provinces Over Time</a>
+        </li>
+        <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+          <a class="nav-link" href="/data/compare-provinces-in-a-year-interactive" role="button">Compare Provinces In a Year</a>
+        </li>
+        <li class="nav-item dropdown dropdown-animate" data-toggle="hover">
+          <a class="nav-link" href="/data/carceral-capacity-interactive" role="button">Carceral Capacity</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
 <!-- Main content -->
 <section class="slice py-1">
   <div class="container">
     <div class="row row-grid align-items-center">
-      <div class="col-12 col-md-5 col-lg-6 order-md-2 text-center">
-        <h3 class="display-4 text-left text-md-left mb-3">
-          <strong class="text-primary">Data</strong>
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 text-center">
+        <h2 class="display-6 text-left text-md-left mb-3">
+          <strong class="text-primary">{{ title }} - Interactive</strong>
         </h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-12 col-md-5 col-lg-12 order-md-2 text-left mb-6">
+        <div id="observablehq-829185ef">
+          <div class="observablehq-interactive"></div>
+        </div>
+        <script type="module">
+          import {Runtime, Inspector} from "https://cdn.jsdelivr.net/npm/@observablehq/runtime@4/dist/runtime.js";
+          import define from "https://api.observablehq.com/@ohinds/{{ observable_id }}.js?v=3";
+          (new Runtime).module(define, name => {
+              if (name === "interactive") return Inspector.into("#observablehq-829185ef .observablehq-interactive")();
+          });
+        </script>
       </div>
     </div>
   </div>
