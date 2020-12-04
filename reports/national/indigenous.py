@@ -39,22 +39,22 @@ def national(statcan):
     ind_count = interp_and_sum(country, 'Aboriginal identity')
     plt.plot(ind_count)
     save_plot("Indigenous Admissions to Incarceration")
-    ind_count.name = "Indigenous Admissions to Incarceration"
+    ind_count.name = "Indigenous Admissions"
 
     non_ind_count = interp_and_sum(country, 'Non-Aboriginal identity')
     plt.plot(non_ind_count)
     save_plot("Non-indigenous Admissions to Incarceration")
-    non_ind_count.name = "Non-indigenous Admissions to Incarceration"
+    non_ind_count.name = "Non-indigenous Admissions"
 
     ind_count_ptc = percent_change(ind_count)
     plt.plot(ind_count_ptc)
     save_plot("% Change in Indigenous Admissions to Incarceration")
-    ind_count_ptc.name = "% Change in Indigenous Admissions to Incarceration"
+    ind_count_ptc.name = "% Change in Indigenous Admissions"
 
     non_ind_count_ptc = percent_change(non_ind_count)
     plt.plot(non_ind_count_ptc)
     save_plot("% Change in Non-indigenous Admissions to Incarceration")
-    non_ind_count_ptc.name = "% Change in Non-indigenous Admissions to Incarceration"
+    non_ind_count_ptc.name = "% Change in Non-indigenous Admissions"
 
     pd.concat([ind_count, non_ind_count], axis=1).to_csv(os.path.join(os.path.dirname(__file__), 'indigenous_adm.csv'), float_format="%0.0f")
 
